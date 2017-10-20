@@ -19,6 +19,8 @@ package org.popper.fw.jemmy;
 import java.awt.Component;
 import java.awt.Container;
 import java.awt.Window;
+import java.util.ArrayList;
+import java.util.List;
 
 import org.netbeans.jemmy.ComponentChooser;
 import org.netbeans.jemmy.operators.ContainerOperator;
@@ -154,7 +156,13 @@ public class JemmyPageObjectHelper {
             return new Container() {
                 @Override
                 public Component[] getComponents() {
-                    return Window.getWindows();
+                    List<Window> allVisibleWindows = new ArrayList<>();
+                    for (Window next : Window.getWindows()) {
+                        if (next.isVisible()) {
+                            allVisibleWindows.add(next);
+                        }
+                    }
+                    return allVisibleWindows.toArray(new Component[] {});
                 }
             };
         }
