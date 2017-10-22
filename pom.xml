@@ -4,7 +4,7 @@
 	<groupId>org.popperfw</groupId>
 	<artifactId>parent</artifactId>
 	<packaging>pom</packaging>
-	<version>0.8.7</version>
+	<version>0.8.8-SNAPSHOT</version>
 	<name>Popper Framework Parent</name>
 	<description>Parent Pom of popper framework</description>
 	<url>http://popperfw.org/</url>

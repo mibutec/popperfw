@@ -6,7 +6,7 @@
 	<parent>
 		<groupId>org.popperfw</groupId>
 		<artifactId>parent</artifactId>
-        <version>0.8.7</version>
+        <version>0.8.8-SNAPSHOT</version>
 	</parent>
     <artifactId>jemmy</artifactId>
 	<packaging>jar</packaging>
