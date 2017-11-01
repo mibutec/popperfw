@@ -15,8 +15,6 @@
  */
 package org.popper.fw.jemmy.elements.impl;
 
-import javax.swing.JMenuBar;
-
 import org.netbeans.jemmy.operators.JMenuBarOperator;
 import org.netbeans.jemmy.operators.Operator.DefaultStringComparator;
 import org.netbeans.jemmy.operators.Operator.StringComparator;
@@ -30,7 +28,7 @@ import org.popper.fw.jemmy.elements.IJemmyMenuBar;
  */
 public class DefaultMenuBar extends AbstractJemmyElement<JMenuBarOperator> implements IJemmyMenuBar {
     public DefaultMenuBar(JemmyElementReference reference) {
-        super(reference, JMenuBarOperator.class, JMenuBar.class);
+        super(reference, JMenuBarOperator.class);
     }
 
     /** (non-Javadoc)

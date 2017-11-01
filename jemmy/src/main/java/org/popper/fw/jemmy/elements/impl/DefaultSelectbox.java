@@ -15,7 +15,6 @@
  */
 package org.popper.fw.jemmy.elements.impl;
 
-import java.awt.Choice;
 import java.util.List;
 
 import org.netbeans.jemmy.operators.ChoiceOperator;
@@ -28,7 +27,7 @@ import org.popper.fw.jemmy.elements.IJemmySelectbox;
  */
 public class DefaultSelectbox extends AbstractJemmyInput<ChoiceOperator> implements IJemmySelectbox {
     public DefaultSelectbox(JemmyElementReference elementReference) {
-        super(elementReference, ChoiceOperator.class, Choice.class);
+        super(elementReference, ChoiceOperator.class);
     }
 
     /** (non-Javadoc)

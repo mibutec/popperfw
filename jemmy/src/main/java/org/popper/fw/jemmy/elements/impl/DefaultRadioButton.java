@@ -15,8 +15,6 @@
  */
 package org.popper.fw.jemmy.elements.impl;
 
-import javax.swing.JRadioButton;
-
 import org.netbeans.jemmy.operators.JRadioButtonOperator;
 import org.popper.fw.jemmy.elements.IJemmyRadioButton;
 
@@ -28,7 +26,7 @@ import org.popper.fw.jemmy.elements.IJemmyRadioButton;
 public class DefaultRadioButton extends AbstractJemmyInput<JRadioButtonOperator> implements IJemmyRadioButton {
 
     public DefaultRadioButton(JemmyElementReference reference) {
-        super(reference, JRadioButtonOperator.class, JRadioButton.class);
+        super(reference, JRadioButtonOperator.class);
     }
 
     /** (non-Javadoc)

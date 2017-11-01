@@ -16,7 +16,6 @@
 
 package org.popper.fw.jemmy.elements.impl;
 
-import java.awt.Component;
 import java.awt.Container;
 import java.lang.reflect.Constructor;
 import java.lang.reflect.InvocationTargetException;
@@ -48,12 +47,9 @@ public abstract class AbstractJemmyElement<T extends ComponentOperator> implemen
 
     protected final Class<T> operatorType;
     
-    protected final Class<? extends Component> componentType;
-
-    protected AbstractJemmyElement(JemmyElementReference reference, Class<T> operatorType, Class<? extends Component> componentType) {
+    protected AbstractJemmyElement(JemmyElementReference reference, Class<T> operatorType) {
         this.reference = reference;
         this.operatorType = operatorType;
-        this.componentType = componentType;
     }
 
     protected JemmyContext getContext() {
@@ -93,10 +89,6 @@ public abstract class AbstractJemmyElement<T extends ComponentOperator> implemen
         }
     }
     
-    public boolean canHandle(Class<? extends Component> componentClass) {
-    	return componentClass.isAssignableFrom(this.componentType);
-    }
-
     /**
      * Convenience-method
      * @param timeInMillis time to sleep in Milliseconds

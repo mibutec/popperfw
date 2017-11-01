@@ -15,15 +15,13 @@
  */
 package org.popper.fw.jemmy.elements.impl;
 
-import javax.swing.JButton;
-
 import org.netbeans.jemmy.operators.JButtonOperator;
 import org.popper.fw.jemmy.elements.IJemmyButton;
 
 public class DefaultButton extends AbstractJemmyElement<JButtonOperator> implements IJemmyButton {
 
     public DefaultButton(JemmyElementReference reference) {
-        super(reference, JButtonOperator.class, JButton.class);
+        super(reference, JButtonOperator.class);
     }
 
     @Override
