@@ -134,7 +134,7 @@ public abstract class AbstractPopperContext implements IClassResolver {
 		private static final Logger log = Logger.getLogger(ObjectInstantiator.class);
 		
 		public final<T> T instantiateObject(Class<T> type, IClassResolver classResolver, Map<Class<?>, Object> tempResolver) {
-			log.info("Instantiating Object of class " + type.getName());
+			log.debug("Instantiating Object of class " + type.getName());
 			Constructor<T> constructor = getConstructorToUse(type);
 			constructor.setAccessible(true);
 			Object[] parameters = getParameters(type, classResolver, tempResolver);

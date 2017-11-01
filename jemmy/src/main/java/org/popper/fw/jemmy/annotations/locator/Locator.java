@@ -226,8 +226,7 @@ public @interface Locator {
 
         @Override
         public String getDescription() {
-            return ComponentByXpathChooser.class.getSimpleName() + " (" + expression + ") in \n"
-                    + getContainerToDocumentTransformer();
+            return ComponentByXpathChooser.class.getSimpleName() + " (" + expression + ")";
         }
 
         @Override
