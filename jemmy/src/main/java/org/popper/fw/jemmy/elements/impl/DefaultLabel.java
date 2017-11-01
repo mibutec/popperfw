@@ -15,15 +15,13 @@
  */
 package org.popper.fw.jemmy.elements.impl;
 
-import javax.swing.JLabel;
-
 import org.netbeans.jemmy.operators.JLabelOperator;
 import org.popper.fw.jemmy.elements.IJemmyLabel;
 
 public class DefaultLabel extends AbstractJemmyElement<JLabelOperator> implements IJemmyLabel {
 
     public DefaultLabel(JemmyElementReference reference) {
-        super(reference, JLabelOperator.class, JLabel.class);
+        super(reference, JLabelOperator.class);
     }
 
     @Override

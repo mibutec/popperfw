@@ -15,8 +15,6 @@
  */
 package org.popper.fw.jemmy.elements.impl;
 
-import javax.swing.JCheckBox;
-
 import org.netbeans.jemmy.operators.JCheckBoxOperator;
 import org.popper.fw.jemmy.elements.IJemmyCheckbox;
 
@@ -28,7 +26,7 @@ import org.popper.fw.jemmy.elements.IJemmyCheckbox;
 public class DefaultCheckbox extends AbstractJemmyInput<JCheckBoxOperator> implements IJemmyCheckbox {
 
     public DefaultCheckbox(JemmyElementReference reference) {
-        super(reference, JCheckBoxOperator.class, JCheckBox.class);
+        super(reference, JCheckBoxOperator.class);
     }
 
     @Override

@@ -16,8 +16,6 @@
 
 package org.popper.fw.jemmy.elements.impl;
 
-import java.awt.Component;
-
 import org.netbeans.jemmy.operators.ComponentOperator;
 import org.popper.fw.jemmy.elements.IJemmyInput;
 
@@ -28,8 +26,8 @@ import org.popper.fw.jemmy.elements.IJemmyInput;
  */
 public abstract class AbstractJemmyInput<T extends ComponentOperator> extends AbstractJemmyElement<T>
         implements IJemmyInput {
-    protected AbstractJemmyInput(JemmyElementReference reference, Class<T> operatorType, Class<? extends Component> componentType) {
-        super(reference, operatorType, componentType);
+    protected AbstractJemmyInput(JemmyElementReference reference, Class<T> operatorType) {
+        super(reference, operatorType);
     }
 
     /*

@@ -15,8 +15,6 @@
  */
 package org.popper.fw.jemmy.elements.impl;
 
-import java.awt.TextComponent;
-
 import org.netbeans.jemmy.operators.TextComponentOperator;
 import org.popper.fw.jemmy.elements.IJemmyTextbox;
 
@@ -27,7 +25,7 @@ import org.popper.fw.jemmy.elements.IJemmyTextbox;
  */
 public class DefaultTextbox extends AbstractJemmyInput<TextComponentOperator> implements IJemmyTextbox {
     public DefaultTextbox(JemmyElementReference reference) {
-        super(reference, TextComponentOperator.class, TextComponent.class);
+        super(reference, TextComponentOperator.class);
     }
 
     /** (non-Javadoc)
