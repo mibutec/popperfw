@@ -4,5 +4,14 @@ before_install:
   - "sh -e /etc/init.d/xvfb start"
 sudo: false
 script: mvn clean verify
-after_success:
-  - mvn clean deploy -s .travis/settings.xml
+before_install:
+  - echo $GPG_SECRET_KEYS | base64 --decode | gpg --import
+  - echo $GPG_OWNERTRUST | gpg --import-ownertrust
+deploy:
+  -
+    provider: script
+    script: mvn clean deploy -s .travis/settings.xml -P sign,ossrh
+    skip_cleanup: true
+    on:
+      all_branches: true
+      condition: "$TRAVIS_BRANCH =~ ^(master|release).*$"
