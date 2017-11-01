@@ -10,5 +10,5 @@ deploy:
     script: .travis/deploy.sh
     skip_cleanup: true
     on:
-    all_branches: true
-    condition: "$TRAVIS_BRANCH =~ ^(master|release|travistest).*$"
+      all_branches: true
+      condition: "$TRAVIS_BRANCH =~ ^(master|release|travistest).*$"
