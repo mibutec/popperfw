@@ -20,7 +20,7 @@ public abstract class AbstractJemmyTest {
     @Before
     public void setup() {
         context = new JemmyContext(appClass);
-        context.setRelevantTimeouts(500);
+        context.setRelevantTimeouts(2500);
         factory = context.getFactory();
         context.start();
     }
