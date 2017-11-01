@@ -4,5 +4,10 @@ before_install:
   - "sh -e /etc/init.d/xvfb start"
 sudo: false
 script: mvn clean verify
-after_success:
-  - mvn clean deploy -s .travis/settings.xml
+deploy:
+  -
+    provider: script
+    script: .travis/deploy.sh
+    skip_cleanup: true
+    on:
+      branch: master

@@ -29,8 +29,8 @@
 	
 	<modules>
 		<module>core</module>
-		<module>webdriver</module>
-		<module>jemmy</module>
+<!--		<module>webdriver</module>
+		<module>jemmy</module> -->
 	</modules>
 
 	
