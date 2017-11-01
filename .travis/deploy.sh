@@ -1,0 +1,1 @@
+mvn clean deploy -s .travis/settings.xml
