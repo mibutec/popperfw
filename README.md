@@ -108,3 +108,11 @@ When you want to use popperfw for swing applications use the following Maven dep
       <version>0.8.7</version>
     </dependency>
 
+# More Examples
+## Using Parameters
+
+popperfw allows it to declare parametrized elements on your page. Image you want to access a link in you Page Header by the text inside it:
+    public interface Header {
+      @Locator(xpath = "//a[text()='{0}'")
+      ILink linkByName(String linkname);
+    }
