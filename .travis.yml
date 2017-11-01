@@ -7,8 +7,8 @@ script: mvn clean verify
 before_install:
   - echo $GPG_SECRET_KEYS
   - echo $GPG_OWNERTRUST
-  - echo $GPG_SECRET_KEYS | base64 --decode | $GPG_EXECUTABLE --import; fi
-  - echo $GPG_OWNERTRUST | base64 --decode | $GPG_EXECUTABLE --import-ownertrust; fi
+  - echo $GPG_SECRET_KEYS | base64 --decode | gpg --import
+  - echo $GPG_OWNERTRUST | base64 --decode | gpg --import-ownertrust
 deploy:
   -
     provider: script
