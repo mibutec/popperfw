@@ -32,15 +32,4 @@ public interface ITextBox extends IInput {
 	
 	@Accessor(name="text")
 	public String getText();
-	
-	@Override
-	default String value() {
-		return getText();
-	}
-
-	@Override
-	default void value(String value) {
-		text(value);
-	}
-
 }

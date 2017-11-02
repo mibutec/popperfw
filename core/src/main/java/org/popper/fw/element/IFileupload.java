@@ -40,14 +40,4 @@ public interface IFileupload extends IInput {
 	 */
 	@Accessor(name="filename")
 	public String filename();
-	
-	@Override
-	default String value() {
-		return filename();
-	}
-
-	@Override
-	default void value(String value) {
-		uploadFromClasspath(value);
-	}
 }

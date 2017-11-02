@@ -54,19 +54,4 @@ public interface ICheckbox extends IInput {
 	 */
 	@Accessor(name="is checked")
 	public boolean ischecked();
-	
-	@Override
-	default String value() {
-		return String.valueOf(ischecked());
-	}
-
-	@Override
-	default void value(String value) {
-		if (Boolean.valueOf(value)) {
-			check();
-		} else {
-			uncheck();
-		}
-	}
-
 }

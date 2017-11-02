@@ -30,16 +30,4 @@ public interface IInput extends IElement {
 	 */
 	@Accessor(name="is editable")
 	boolean isEditable();
-	
-	/**
-	 * Get the value of an input element
-	 * @return value of input element as String
-	 */
-	String value();
-	
-	/**
-	 * Set the value of an input element
-	 * @param value value to set
-	 */
-	void value(String value);
 }
