@@ -27,6 +27,10 @@
 		</developer>
 	</developers>
 	
+	<properties>
+		<additionalparam>-Xdoclint:none</additionalparam>
+	</properties>
+	
 	<modules>
 		<module>core</module>
 		<module>webdriver</module>
