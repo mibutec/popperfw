@@ -27,6 +27,7 @@ import org.apache.commons.lang.StringUtils;
 import org.apache.log4j.Logger;
 import org.netbeans.jemmy.ComponentChooser;
 import org.netbeans.jemmy.operators.ContainerOperator;
+import org.netbeans.jemmy.operators.Operator;
 import org.popper.fw.impl.ImplHolder;
 import org.popper.fw.impl.PageObjectImplementation;
 import org.popper.fw.impl.ReturnTypeHandler;
@@ -99,14 +100,17 @@ public abstract class AbstractLocatorAnnotationProcessor<A extends Annotation>
         return Arrays.stream(split).collect(Collectors.joining(" "));
     }
 
-    @Override
+	@Override
+    @SuppressWarnings({ "unchecked", "rawtypes" })
     public Object createObject(A annotation, LocatorContextInformation info, Class<?> type,
             ContainerOperator operator) {
         final String locatorName = getName(info.getMethod(), annotation);
         PageObjectImplementation parent = info.getParent();
         ComponentChooser chooser = getChooser(annotation, info);
         Class<?> givenImplClass = context.getImplementingClassFor(info.getMethod(), type);
-        if (givenImplClass == null) {
+        if (Operator.class.isAssignableFrom(type)) {
+        	return ((JemmyContext) info.getPopperContext()).createOperator((Class) type, info.getParent(), chooser);
+        } else if (givenImplClass == null) {
             return context.getFactory().createPo(type, locatorName, chooser, parent);
         } else {
             JemmyElementReference reference = new JemmyElementReference(locatorName, parent, chooser, context);

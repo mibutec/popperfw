@@ -17,15 +17,11 @@
 package org.popper.fw.jemmy.elements.impl;
 
 import java.awt.Container;
-import java.lang.reflect.Constructor;
-import java.lang.reflect.InvocationTargetException;
 
-import org.netbeans.jemmy.ComponentChooser;
 import org.netbeans.jemmy.TimeoutExpiredException;
 import org.netbeans.jemmy.operators.ComponentOperator;
 import org.netbeans.jemmy.operators.ContainerOperator;
 import org.popper.fw.jemmy.JemmyContext;
-import org.popper.fw.jemmy.JemmyPageObjectHelper.SearchContextProvider;
 import org.popper.fw.jemmy.elements.IJemmyElement;
 import org.popper.fw.jemmy.elements.IJemmyLabel;
 
@@ -58,25 +54,9 @@ public abstract class AbstractJemmyElement<T extends ComponentOperator> implemen
 
     @Override
     public T getOperator() {
-        try {
-            Constructor<T> constructor = operatorType.getConstructor(ContainerOperator.class, ComponentChooser.class);
-            ContainerOperator parent = reference.getParent().getExtension(SearchContextProvider.class)
-                    .getSearchContext();
-
-            T operator = constructor.newInstance(parent, reference.getBy());
-            reference.getContext().flashComponent(operator);
-            return operator;
-        } catch (InvocationTargetException ite) {
-            Throwable cause = ite.getTargetException();
-            if (cause instanceof RuntimeException) {
-                throw (RuntimeException) cause;
-            }
-            throw new RuntimeException(cause);
-        } catch (RuntimeException re) {
-            throw re;
-        } catch (Exception e) {
-            throw new RuntimeException(e);
-        }
+    	T ret = getContext().createOperator(operatorType, reference.getParent(), reference.getBy());
+    	getContext().flashComponent(ret);
+    	return ret;
     }
 
     public T getOperatorFast() {

@@ -65,8 +65,8 @@ public @interface Locator {
         }
 
         public static ComponentChooser annotationToChooser(Locator annotation, Object[] parameters,
-                SearchContextProvider searchContextProvider, boolean isFakeBlaScheiss) {
-            if (isFakeBlaScheiss) {
+                SearchContextProvider searchContextProvider, boolean isNewWindow) {
+            if (isNewWindow) {
                 searchContextProvider = new AllWindowsSearchContextProvider();
             }
             if (annotation.componentClass() != Object.class) {
