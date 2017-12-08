@@ -37,19 +37,4 @@ public interface IRadioButton extends IInput {
 	 */
 	@Accessor(name="is selected")
 	public boolean isSelected();
-	
-	@Override
-	default String value() {
-		return String.valueOf(isSelected());
-	}
-
-	@Override
-	default void value(String value) {
-		if (!Boolean.valueOf(value)) {
-			throw new IllegalArgumentException("other values than 'true' are not supported by " + getClass().getSimpleName());
-		}
-		
-		select();
-	}
-
 }

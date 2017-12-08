@@ -147,13 +147,4 @@ public class Superelement extends AbstractWebElement implements IButton, ICheckb
 		
 		return null;
 	}
-
-	@Override
-	public String value() {
-		return null;
-	}
-
-	@Override
-	public void value(String value) {
-	}
 }

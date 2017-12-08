@@ -39,15 +39,4 @@ public interface ISelectBox extends IInput {
 	 */
 	@Accessor(name="selected text")
 	public String getSelectedText();
-	
-	@Override
-	default String value() {
-		return getSelectedText();
-	}
-
-	@Override
-	default void value(String value) {
-		selectByText(value);
-	}
-
 }
