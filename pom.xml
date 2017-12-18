@@ -4,7 +4,7 @@
 	<groupId>org.popperfw</groupId>
 	<artifactId>parent</artifactId>
 	<packaging>pom</packaging>
-	<version>0.8.9</version>
+	<version>0.8.9-SNAPSHOT</version>
 	<name>Popper Framework Parent</name>
 	<description>Parent Pom of popper framework</description>
 	<url>http://popperfw.org/</url>
@@ -26,10 +26,6 @@
 			<email>michaelbulla@gmail.com</email>
 		</developer>
 	</developers>
-	
-	<properties>
-		<additionalparam>-Xdoclint:none</additionalparam>
-	</properties>
 	
 	<modules>
 		<module>core</module>
@@ -75,10 +71,19 @@
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-javadoc-plugin</artifactId>
+				<version>2.10.4</version>
 				<configuration>
 					<encoding>UTF-8</encoding>
                     <additionalparam>-Xdoclint:none</additionalparam>
 				</configuration>
+				<executions>
+					<execution>
+						<id>attach-javadocs</id>
+						<goals>
+							<goal>jar</goal>
+						</goals>
+					</execution>
+				</executions>
 			</plugin>
 			<plugin>
 				<artifactId>maven-release-plugin</artifactId>
