@@ -6,7 +6,7 @@
 	<parent>
 		<groupId>org.popperfw</groupId>
 		<artifactId>parent</artifactId>
-		<version>0.8.9-SNAPSHOT</version>
+		<version>0.8.10-SNAPSHOT</version>
 	</parent>
 
 	<artifactId>webdriver</artifactId>
