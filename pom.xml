@@ -79,14 +79,6 @@
 					<encoding>UTF-8</encoding>
                     <additionalparam>-Xdoclint:none</additionalparam>
 				</configuration>
-				<executions>
-					<execution>
-						<id>attach-javadocs</id>
-						<goals>
-							<goal>jar</goal>
-						</goals>
-					</execution>
-				</executions>
 			</plugin>
 			<plugin>
 				<artifactId>maven-release-plugin</artifactId>
