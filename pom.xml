@@ -28,6 +28,7 @@
 	</developers>
 	
 	<modules>
+		<module>forge</module>
 		<module>core</module>
 		<module>webdriver</module>
 		<module>jemmy</module>
