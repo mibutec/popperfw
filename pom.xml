@@ -4,7 +4,7 @@
 	<groupId>org.popperfw</groupId>
 	<artifactId>parent</artifactId>
 	<packaging>pom</packaging>
-	<version>0.8.9-SNAPSHOT</version>
+	<version>0.9.0-SNAPSHOT</version>
 	<name>Popper Framework Parent</name>
 	<description>Parent Pom of popper framework</description>
 	<url>http://popperfw.org/</url>
@@ -32,7 +32,6 @@
 		<module>webdriver</module>
 		<module>jemmy</module>
 	</modules>
-
 	
 	<build>
 		<plugins>
@@ -46,6 +45,42 @@
 					<encoding>UTF-8</encoding>
 				</configuration>
 			</plugin>
+			 <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-antrun-plugin</artifactId>
+		 <version>1.6</version>
+        <executions>
+          <execution>
+            <id>check-license-header</id>
+            <phase>process-sources</phase>
+			
+            <goals>
+              <goal>run</goal>
+            </goals>
+            <configuration>
+              <target>
+                <fileset dir="${basedir}/src" includes="**/*.java" excludes="**/TypeResolver.java" id="missinglicense.fileset">
+                  <not>
+                    <and>
+                      <contains text="Copyright (C) 2013 - 2018 Michael Bulla [michaelbulla@gmail.com]"/>
+                      <contains text="Licensed under the Apache License, Version 2.0"/>
+                      <contains text="http://www.apache.org/licenses/LICENSE-2.0"/>
+                    </and>
+                  </not>
+                </fileset>
+                <pathconvert property="missing" refid="missinglicense.fileset"/>
+                <fail message="Invalid license info in: ${missing}">
+                  <condition>
+                    <not>
+                      <equals arg1="${missing}" arg2=""/>
+                    </not>
+                  </condition>
+                </fail>
+              </target>
+            </configuration>
+          </execution>
+        </executions>
+</plugin>
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-eclipse-plugin</artifactId>
@@ -71,6 +106,7 @@
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-javadoc-plugin</artifactId>
+				<version>2.8</version>
 				<configuration>
 					<encoding>UTF-8</encoding>
                     <additionalparam>-Xdoclint:none</additionalparam>
