@@ -16,6 +16,7 @@
  */
 package org.popper.inttest.pos;
 
+import org.netbeans.jemmy.operators.JLabelOperator;
 import org.popper.fw.element.IButton;
 import org.popper.fw.jemmy.annotations.Frame;
 import org.popper.fw.jemmy.annotations.WaitForEvents;
@@ -40,7 +41,7 @@ public interface SimpleAppPo {
 
     @Locator(xpath = "//*[@id='cntId']")
     @WaitForEvents
-    IJemmyLabel cntLabel();
+    JLabelOperator cntLabel();
 
     @Locator(xpath = "//*[@id=\"bla'Id'\"]")
     @WaitForEvents

@@ -35,11 +35,11 @@ public class SimpleAppTest extends AbstractJemmyTest {
     public void someTest() {
         SimpleAppPo firstJemmyPo = factory.createPage(SimpleAppPo.class);
 
-        assertEquals("0", firstJemmyPo.cntLabel().text());
+        assertEquals("0", firstJemmyPo.cntLabel().getText());
         firstJemmyPo.plusButton().click();
         firstJemmyPo.plusButtonAsIButton().click();
         firstJemmyPo.plusButton().click();
-        assertEquals("3", firstJemmyPo.cntLabel().text());
+        assertEquals("3", firstJemmyPo.cntLabel().getText());
         assertEquals("Some Bla", firstJemmyPo.someBlaLabel().text());
     }
 

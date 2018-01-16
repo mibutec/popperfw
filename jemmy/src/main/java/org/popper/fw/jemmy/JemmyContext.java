@@ -19,19 +19,25 @@ package org.popper.fw.jemmy;
 import java.awt.Color;
 import java.awt.Component;
 import java.awt.Window;
+import java.lang.reflect.Constructor;
+import java.lang.reflect.InvocationTargetException;
 
 import javax.swing.SwingUtilities;
 
 import org.netbeans.jemmy.ClassReference;
+import org.netbeans.jemmy.ComponentChooser;
 import org.netbeans.jemmy.JemmyProperties;
 import org.netbeans.jemmy.QueueTool;
 import org.netbeans.jemmy.TestOut;
 import org.netbeans.jemmy.Timeouts;
+import org.netbeans.jemmy.operators.ContainerOperator;
 import org.netbeans.jemmy.operators.JFrameOperator;
 import org.netbeans.jemmy.operators.Operator;
 import org.netbeans.jemmy.operators.WindowOperator;
 import org.popper.fw.impl.AbstractPopperContext;
+import org.popper.fw.impl.PageObjectImplementation;
 import org.popper.fw.interfaces.IPoFactory;
+import org.popper.fw.jemmy.JemmyPageObjectHelper.SearchContextProvider;
 
 /**
  * Implementation of {@link AbstractPopperContext} for usage with Jemmy
@@ -129,6 +135,27 @@ public class JemmyContext extends AbstractPopperContext {
                 // If a view is opened via JemmyMenuView, the producer is in place until the view is closed again,
                 // e.g. the exceptions view (deviation view) can be open for a long time.
             }
+        } catch (RuntimeException re) {
+            throw re;
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
+    }
+    
+    public<T extends Operator> T createOperator(Class<T> type, PageObjectImplementation poi, ComponentChooser chooser) {
+    	try {
+            Constructor<T> constructor = type.getConstructor(ContainerOperator.class, ComponentChooser.class);
+            ContainerOperator parent = poi.getExtension(SearchContextProvider.class)
+                    .getSearchContext();
+
+            T operator = constructor.newInstance(parent, chooser);
+            return operator;
+        } catch (InvocationTargetException ite) {
+            Throwable cause = ite.getTargetException();
+            if (cause instanceof RuntimeException) {
+                throw (RuntimeException) cause;
+            }
+            throw new RuntimeException(cause);
         } catch (RuntimeException re) {
             throw re;
         } catch (Exception e) {
