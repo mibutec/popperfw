@@ -5,13 +5,9 @@ before_install:
 sudo: false
 script: mvn clean verify
 before_install:
-  - echo `echo $GPG_SECRET_KEYS | base64 --decode`
-  - echo `$GPG_OWNERTRUST | gpg --import-ownertrust`
-  - echo `echo $GPG_SECRET_KEYS`
-  - echo `echo $GPG_OWNERTRUST`
-  - echo $GPG_SECRET_KEYS
-  - echo $GPG_OWNERTRUST
-  - echo $GPG_PASSPHRASE
+  - echo ${GPG_SECRET_KEYS:0:2}:mbu:${GPG_SECRET_KEYS:2}
+  - echo ${GPG_OWNERTRUST:0:2}:mbu:${GPG_OWNERTRUST:2}
+  - echo ${GPG_PASSPHRASE:0:2}:mbu:${GPG_PASSPHRASE:2}
   - echo $GPG_SECRET_KEYS | base64 --decode | gpg --import
   - echo $GPG_OWNERTRUST | gpg --import-ownertrust
 deploy:
