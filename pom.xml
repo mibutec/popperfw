@@ -129,6 +129,7 @@
 				<configuration>
 					<serverId>ossrh</serverId>
 					<nexusUrl>https://oss.sonatype.org/</nexusUrl>
+					<stagingProfileId>2fb5c4afd4ee2d</stagingProfileId>
 				</configuration>
 			</plugin>
 			<plugin>
