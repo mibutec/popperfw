@@ -122,6 +122,15 @@
 				</executions>
 			</plugin>
 			<plugin>
+				<groupId>org.sonatype.plugins</groupId>
+				<artifactId>nexus-staging-maven-plugin</artifactId>
+				<version>1.6.8</version>
+				<extensions>true</extensions>
+				<configuration>
+					<stagingProfileId>129341e09f2ee275</stagingProfileId>
+				</configuration>
+			</plugin>
+			<plugin>
 				<artifactId>maven-release-plugin</artifactId>
 				<version>2.4.2</version>
 				<configuration>

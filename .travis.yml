@@ -7,7 +7,7 @@ before_install:
 deploy:
   -
     provider: script
-    script: mvn clean deploy -s .travis/settings.xml -P sign,ossrh
+    script: mvn clean deploy -DskipLocalStaging=true -s .travis/settings.xml -P sign,ossrh
     skip_cleanup: true
     on:
       all_branches: true
