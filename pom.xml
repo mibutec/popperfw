@@ -127,7 +127,7 @@
 				<version>1.6.8</version>
 				<extensions>true</extensions>
 				<configuration>
-					<id>ossrh</id>
+					<serverId>ossrh</serverId>
 					<nexusUrl>https://oss.sonatype.org/</nexusUrl>
 					<stagingProfileId>129341e09f2ee275</stagingProfileId>
 				</configuration>
