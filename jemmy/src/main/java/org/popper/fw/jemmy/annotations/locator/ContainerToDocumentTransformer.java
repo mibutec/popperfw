@@ -4,9 +4,9 @@
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
- * 
+ *
  *      http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -18,6 +18,7 @@ package org.popper.fw.jemmy.annotations.locator;
 
 import java.awt.Component;
 import java.awt.Container;
+import java.awt.EventQueue;
 import java.io.ByteArrayOutputStream;
 import java.io.OutputStreamWriter;
 import java.io.UnsupportedEncodingException;
@@ -32,7 +33,11 @@ import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
 import java.util.Set;
+import java.util.concurrent.CompletableFuture;
+import java.util.concurrent.ExecutionException;
+import java.util.concurrent.Executor;
 
+import javax.swing.SwingUtilities;
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.parsers.ParserConfigurationException;
@@ -66,7 +71,7 @@ public class ContainerToDocumentTransformer {
 
     private Map<String, Collection<Component>> resultCache = new HashMap<>();
 
-    public ContainerToDocumentTransformer(Container container, String expression) {
+    private ContainerToDocumentTransformer(Container container, String expression) {
         try {
             DocumentBuilderFactory docFactory = DocumentBuilderFactory.newInstance();
             DocumentBuilder docBuilder = docFactory.newDocumentBuilder();
@@ -201,5 +206,19 @@ public class ContainerToDocumentTransformer {
 
     private boolean isNoticable(Class<?> type) {
         return type.isEnum() || type.isPrimitive() || interestingTypes.contains(type);
+    }
+
+    public static ContainerToDocumentTransformer getInstance(Container container, String expression) {
+        if (SwingUtilities.isEventDispatchThread()) {
+            return new ContainerToDocumentTransformer(container, expression);
+        } else {
+            Executor edt = EventQueue::invokeLater;
+            try {
+                return CompletableFuture
+                        .supplyAsync(() -> new ContainerToDocumentTransformer(container, expression), edt).get();
+            } catch (InterruptedException | ExecutionException e) {
+                throw new RuntimeException(e);
+            }
+        }
     }
 }

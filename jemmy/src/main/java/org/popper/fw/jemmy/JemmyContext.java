@@ -4,9 +4,9 @@
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
- * 
+ *
  *      http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -115,7 +115,7 @@ public class JemmyContext extends AbstractPopperContext {
         return containerOperator != null;
     }
 
-    public void waitForEvents() {
+    public static void waitForEvents() {
         try {
             while (!QueueTool.checkEmpty()) {
                 if (SwingUtilities.isEventDispatchThread()) {
@@ -141,12 +141,12 @@ public class JemmyContext extends AbstractPopperContext {
             throw new RuntimeException(e);
         }
     }
-    
-    public<T extends Operator> T createOperator(Class<T> type, PageObjectImplementation poi, ComponentChooser chooser) {
-    	try {
+
+    public <T extends Operator> T createOperator(Class<T> type, PageObjectImplementation poi,
+            ComponentChooser chooser) {
+        try {
             Constructor<T> constructor = type.getConstructor(ContainerOperator.class, ComponentChooser.class);
-            ContainerOperator parent = poi.getExtension(SearchContextProvider.class)
-                    .getSearchContext();
+            ContainerOperator parent = poi.getExtension(SearchContextProvider.class).getSearchContext();
 
             T operator = constructor.newInstance(parent, chooser);
             return operator;
