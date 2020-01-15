@@ -128,7 +128,7 @@
 				<extensions>true</extensions>
 				<configuration>
 					<id>ossrh</id>
-					<nexusUrl>https://oss.sonatype.org/service/local/staging/deploy/maven2/</nexusUrl>
+					<nexusUrl>https://oss.sonatype.org/</nexusUrl>
 					<stagingProfileId>129341e09f2ee275</stagingProfileId>
 				</configuration>
 			</plugin>
