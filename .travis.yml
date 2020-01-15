@@ -1,7 +1,6 @@
 language: java
 sudo: false
-script: mvn clean verify
-before_install:
+before_deploy:
   - echo $GPG_SECRET_KEYS | base64 --decode | gpg --import
   - echo $GPG_OWNERTRUST | gpg --import-ownertrust
 deploy:
