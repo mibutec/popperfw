@@ -60,11 +60,12 @@ public class JemmyContext extends AbstractPopperContext {
     public JemmyContext(Class<?> mainDialogClass) {
         this.mainDialogClass = mainDialogClass;
     }
-
+    
     public void setRelevantTimeouts(int timeout) {
         relevantTimeouts = timeout;
+        Timeouts timeouts = JemmyProperties.getCurrentTimeouts();
         for (String timeoutName : RELEVANT_TIMEOUTS) {
-            Timeouts.setDefault(timeoutName, timeout);
+            timeouts.setTimeout(timeoutName, timeout);
         }
     }
 
