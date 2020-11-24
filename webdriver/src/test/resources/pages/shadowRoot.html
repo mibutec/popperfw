@@ -1,0 +1,19 @@
+<html>
+<body>
+	<div id="root">
+		<div id="nonShadow">NonShadowText</div>
+		<div id="shadowRoot"></div>
+	</div>
+	
+	<script>
+		shadowRoot = document.getElementById('shadowRoot');
+		shadow = shadowRoot.attachShadow({mode: 'open'});
+		shadowDiv = document.createElement('div');
+		shadowButton = document.createElement('button');
+		shadowButton.innerHTML = 'ShadowButtonText';
+		shadowDiv.appendChild(shadowButton);
+		shadow.appendChild(shadowButton);
+	</script>
+</body>
+</html>
+
