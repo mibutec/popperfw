@@ -18,7 +18,6 @@ package org.popper.inttest;
 
 import org.junit.After;
 import org.junit.Before;
-import org.omg.CORBA.SystemException;
 import org.popper.fw.interfaces.IPoFactory;
 import org.popper.fw.jemmy.JemmyContext;
 
@@ -42,7 +41,7 @@ public abstract class AbstractJemmyTest {
     }
 
     @After
-    public void stopApplication() throws SystemException {
+    public void stopApplication() {
         context.stop();
     }
 }
