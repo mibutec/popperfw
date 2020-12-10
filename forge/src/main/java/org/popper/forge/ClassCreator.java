@@ -103,7 +103,7 @@ public class ClassCreator {
 				addField(evalClass, requiredField);
 			}
 
-			return evalClass.toClass(classLoaderProvider.provideClassLoader(blankClass, furtherInterfaces), this.getClass().getProtectionDomain());
+			return (Class<T>) evalClass.toClass(classLoaderProvider.provideClassLoader(blankClass, furtherInterfaces), this.getClass().getProtectionDomain());
 		} catch (CannotCompileException | NotFoundException e) {
 			throw new CantCreateClassException("error creating class " + implName + " of blank type " + blankClass.getName(), e);
 		} finally {
