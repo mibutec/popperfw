@@ -1,9 +1,10 @@
 language: java
 sudo: false
 script: mvn clean verify
+services:
+  - xvfb
 before_install:
   - "export DISPLAY=:99.0"
-  - "sh -e /etc/init.d/xvfb start"
   - echo $GPG_SECRET_KEYS | base64 --decode | gpg --import
   - echo $GPG_OWNERTRUST | gpg --import-ownertrust
 deploy:

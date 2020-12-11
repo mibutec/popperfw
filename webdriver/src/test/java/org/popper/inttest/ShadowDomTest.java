@@ -16,32 +16,21 @@
  */
 package org.popper.inttest;
 
-import org.junit.After;
-import org.junit.Before;
-import org.popper.fw.interfaces.IPoFactory;
-import org.popper.fw.jemmy.JemmyContext;
+import org.junit.Test;
 
-public abstract class AbstractJemmyTest {
-    private final Class<?> appClass;
+public class ShadowDomTest extends AbstractIntTest {
 
-    protected IPoFactory factory;
-
-    protected JemmyContext context;
-
-    protected AbstractJemmyTest(Class<?> appClass) {
-        this.appClass = appClass;
+    @Test
+    public void testAccessShadowRoot() {
+        // TODO currently HtmlUnit does not support shadow dom (error: TypeError: Cannot find function attachShadow)
+        // re-enable once htmlunit supports this
+//        ShadowRootPO pageContainingShadowDom = factory.createPage(ShadowRootPO.class);
+//        pageContainingShadowDom.open();
+//
+//        Assert.assertEquals("NonShadowText", pageContainingShadowDom.nonShadow().text());
+//
+//        ShadowDomPO shadowDom = pageContainingShadowDom.shadow();
+//        Assert.assertEquals("ShadowButtonText", shadowDom.button().text());
     }
 
-    @Before
-    public void setup() {
-        context = new JemmyContext(appClass);
-        context.setRelevantTimeouts(2500);
-        factory = context.getFactory();
-        context.start();
-    }
-
-    @After
-    public void stopApplication() {
-        context.stop();
-    }
 }

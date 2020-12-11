@@ -24,6 +24,7 @@ import org.openqa.selenium.WebDriver;
 import org.popper.fw.interfaces.IAnnotationProcessor;
 import org.popper.fw.interfaces.IPoFactory;
 import org.popper.fw.interfaces.LocatorContextInformation;
+import org.popper.fw.webdriver.ByGettingShadowRoot;
 import org.popper.fw.webdriver.WebdriverContext;
 
 /**
@@ -39,9 +40,9 @@ public class LocatorAnnotationProcessor extends AbstractLocatorAnnotationProcess
 
 	@Override
 	protected By getBy(Locator annotation, LocatorContextInformation info) {
-		return createBy(annotation.cssSelector(), annotation.xpath(), annotation.id(), info.getParameters());
+		return createBy(annotation.cssSelector(), annotation.xpath(), annotation.id(), annotation.getShadowRoot(), info.getParameters());
 	}
-
+	
 	@Override
 	protected String getName(Method method, Locator locator) {
 		String ret = locator.name();
@@ -50,14 +51,23 @@ public class LocatorAnnotationProcessor extends AbstractLocatorAnnotationProcess
 		}
 		return ret;
 	}
-
+	
 	public static By createBy(String cssSelector, String xpath, String id, Object[] args) {
+	    return createBy(cssSelector, xpath, id, false, args);
+	}
+
+	public static By createBy(String cssSelector, String xpath, String id, boolean getShadowRoot, Object[] args) {
+	    By by;
 		if (!StringUtils.isEmpty(id)) {
-			return By.id(WebdriverContext.replaceVariables(id, args));
+		    by = By.id(WebdriverContext.replaceVariables(id, args));
 		} else if (!StringUtils.isEmpty(cssSelector)) {
-			return By.cssSelector(WebdriverContext.replaceVariables(cssSelector, args));
+		    by = By.cssSelector(WebdriverContext.replaceVariables(cssSelector, args));
 		} else {
-			return By.xpath(WebdriverContext.replaceVariables(xpath, args));
+		    by = By.xpath(WebdriverContext.replaceVariables(xpath, args));
 		}
+		if(getShadowRoot) {
+		    by = new ByGettingShadowRoot(by);
+		}
+		return by;
 	}
 }

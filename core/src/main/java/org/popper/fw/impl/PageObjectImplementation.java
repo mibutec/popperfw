@@ -18,6 +18,8 @@ package org.popper.fw.impl;
 
 import java.lang.annotation.Annotation;
 import java.lang.invoke.MethodHandles;
+import java.lang.invoke.MethodType;
+import java.lang.management.ManagementFactory;
 import java.lang.reflect.AnnotatedElement;
 import java.lang.reflect.Constructor;
 import java.lang.reflect.InvocationHandler;
@@ -28,8 +30,6 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
-
-import javassist.util.proxy.MethodHandler;
 
 import org.jgrapht.alg.CycleDetector;
 import org.jgrapht.graph.DefaultDirectedGraph;
@@ -42,6 +42,8 @@ import org.popper.fw.helper.AnnotationFinder;
 import org.popper.fw.interfaces.IAnnotationProcessor;
 import org.popper.fw.interfaces.LocatorContextInformation;
 import org.popper.fw.interfaces.ReEvalutateException;
+
+import javassist.util.proxy.MethodHandler;
 
 public class PageObjectImplementation implements InvocationHandler,
 		MethodHandler {
@@ -69,6 +71,11 @@ public class PageObjectImplementation implements InvocationHandler,
 			Object[] args) throws Throwable {
 		return invoke(self, thisMethod, args);
 	}
+	
+	private static boolean isJava8() {
+	    String version = ManagementFactory.getRuntimeMXBean().getSpecVersion();
+	    return version.startsWith("1.8");
+	}
 
 	@SuppressWarnings({ "cast" })
 	// @Override
@@ -85,10 +92,18 @@ public class PageObjectImplementation implements InvocationHandler,
 			}
 			
 			final Class<?> declaringClass = method.getDeclaringClass();
-			return constructor.newInstance(declaringClass, MethodHandles.Lookup.PRIVATE)
-	                .unreflectSpecial(method, declaringClass)
-	                .bindTo(proxy)
-	                .invokeWithArguments(args);
+			if(isJava8()) {
+    			return constructor.newInstance(declaringClass, MethodHandles.Lookup.PRIVATE)
+    	                .unreflectSpecial(method, declaringClass)
+    	                .bindTo(proxy)
+    	                .invokeWithArguments(args);
+			} else {
+			      MethodType mt = MethodType.methodType(method.getReturnType());
+			      return MethodHandles.lookup()
+			          .findSpecial(declaringClass, method.getName(), mt, declaringClass)
+			          .bindTo(proxy)
+			          .invokeWithArguments(args);
+			}
 		}
 
 		String methodName = method.getName();

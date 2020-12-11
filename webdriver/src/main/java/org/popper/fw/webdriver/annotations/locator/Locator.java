@@ -33,4 +33,10 @@ public @interface Locator {
 	public String xpath() default "";
 	public String cssSelector() default "";
 	public String id() default "";
+	/**
+	 * If set to true: will return the shadow root of the located element.
+	 * Use for accessing web component dom.
+	 * @return true to access the shadow root.
+	 */
+	public boolean getShadowRoot() default false;
 }
