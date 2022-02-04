@@ -67,7 +67,8 @@ public class PageObjectImplementation implements InvocationHandler,
 	}
 
 	// @Override
-	public Object invoke(Object self, Method thisMethod, Method proceed,
+	@Override
+    public Object invoke(Object self, Method thisMethod, Method proceed,
 			Object[] args) throws Throwable {
 		return invoke(self, thisMethod, args);
 	}
@@ -77,7 +78,8 @@ public class PageObjectImplementation implements InvocationHandler,
 	    return version.startsWith("1.8");
 	}
 
-	@SuppressWarnings({ "cast" })
+	@Override
+    @SuppressWarnings({ "cast" })
 	// @Override
 	public Object invoke(Object proxy, Method method, Object[] args)
 			throws Throwable {
@@ -86,13 +88,14 @@ public class PageObjectImplementation implements InvocationHandler,
 		}
 
 		if (method.isDefault()) {
-			final Constructor<MethodHandles.Lookup> constructor = MethodHandles.Lookup.class.getDeclaredConstructor(Class.class, int.class);
-			if (!constructor.isAccessible()) {
-				constructor.setAccessible(true);
-			}
 			
 			final Class<?> declaringClass = method.getDeclaringClass();
 			if(isJava8()) {
+                final Constructor<MethodHandles.Lookup> constructor = MethodHandles.Lookup.class
+                        .getDeclaredConstructor(Class.class, int.class);
+                if (!constructor.isAccessible()) {
+                    constructor.setAccessible(true);
+                }
     			return constructor.newInstance(declaringClass, MethodHandles.Lookup.PRIVATE)
     	                .unreflectSpecial(method, declaringClass)
     	                .bindTo(proxy)
