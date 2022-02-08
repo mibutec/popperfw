@@ -48,17 +48,19 @@ public class JemmyContext extends AbstractPopperContext {
     private static final String[] RELEVANT_TIMEOUTS = new String[] {"DialogWaiter.WaitDialogTimeout",
             "FrameWaiter.WaitFrameTimeout", "Waiter.WaitingTime", "WindowWaiter.WaitWindowTimeout",
             "ComponentOperator.WaitComponentTimeout",};
+    public static final int DEFAULT_TIMEOUT = 3000;
 
     private final Class<?> mainDialogClass;
 
     private WindowOperator containerOperator;
 
-    private int relevantTimeouts = 3000;
+    private int relevantTimeouts = DEFAULT_TIMEOUT;
 
     private int flashTimeout = -1;
 
     public JemmyContext(Class<?> mainDialogClass) {
         this.mainDialogClass = mainDialogClass;
+        setRelevantTimeouts(DEFAULT_TIMEOUT);
     }
 
     public void setRelevantTimeouts(int timeout) {
