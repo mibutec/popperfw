@@ -66,4 +66,13 @@ public class TextArea extends AbstractInput implements IWebTextBox {
 	public String getText() {
 		return getElement().getAttribute("value");
 	}
+
+	@Override
+	public boolean isEditable() {
+		return super.isEditable() && !isReadonly();
+	}
+	
+	public boolean isReadonly() {
+		return getAttribute("readonly") != null;
+	}
 }
