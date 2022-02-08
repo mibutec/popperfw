@@ -23,7 +23,8 @@ import java.util.Properties;
 import java.util.concurrent.TimeUnit;
 
 import org.apache.commons.lang.LocaleUtils;
-import org.apache.log4j.Logger;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.firefox.FirefoxDriver;
 import org.openqa.selenium.htmlunit.HtmlUnitDriver;
@@ -44,7 +45,7 @@ public class DefaultWebdriverConfig implements IWebdriverConfig {
 	/*
 	 * a logger instance for this class
 	 */
-	private static final transient Logger logger = Logger
+	private static final transient Logger logger = LogManager
 			.getLogger(DefaultWebdriverConfig.class);
 
 	/**
@@ -97,7 +98,8 @@ public class DefaultWebdriverConfig implements IWebdriverConfig {
 		baseUrl = props.getProperty("baseUrl");
 	}
 
-	public Browser getBrowser() {
+	@Override
+    public Browser getBrowser() {
 		return browser;
 	}
 

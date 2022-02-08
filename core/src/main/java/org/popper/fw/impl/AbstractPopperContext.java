@@ -22,7 +22,8 @@ import java.lang.reflect.Modifier;
 import java.util.HashMap;
 import java.util.Map;
 
-import org.apache.log4j.Logger;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.popper.fw.annotations.DefaultConstructor;
 import org.popper.fw.annotations.ElementFactory;
 import org.popper.fw.annotations.Type;
@@ -132,7 +133,7 @@ public abstract class AbstractPopperContext implements IClassResolver {
 	}
 	
 	public static class ObjectInstantiator {
-		private static final Logger log = Logger.getLogger(ObjectInstantiator.class);
+		private static final Logger log = LogManager.getLogger(ObjectInstantiator.class);
 		
 		public final<T> T instantiateObject(Class<T> type, IClassResolver classResolver, Map<Class<?>, Object> tempResolver) {
 			log.debug("Instantiating Object of class " + type.getName());

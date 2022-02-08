@@ -27,7 +27,8 @@ import java.util.Map;
 import java.util.Map.Entry;
 
 import org.apache.commons.lang.StringUtils;
-import org.apache.log4j.Logger;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.popper.fw.annotations.ImplementedBy;
 import org.popper.fw.impl.ReflectionsUtil;
 import org.popper.fw.interfaces.IAnnotationProcessor;
@@ -45,7 +46,7 @@ public @interface PageAccessor {
 	public String absoluteUri() default "";
 	
 	public static class PageAccessorImpl implements IAnnotationProcessor<PageAccessor, Void> {
-		protected final Logger log = Logger.getLogger(getClass());
+		protected final Logger log = LogManager.getLogger(getClass());
 
 		private WebdriverContext context;
 
