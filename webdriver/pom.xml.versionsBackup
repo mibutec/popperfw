@@ -6,13 +6,13 @@
 	<parent>
 		<groupId>org.popperfw</groupId>
 		<artifactId>parent</artifactId>
-        <version>0.11.0-SNAPSHOT</version>
+		<version>0.10.0</version>
 	</parent>
-    <artifactId>jemmy</artifactId>
-	<packaging>jar</packaging>
-	<name>Popper Framework Jemmy</name>
-	<description>Implementation of Popper Framework to create page Objects for Swing applications tested via Jemmy</description>
 
+	<artifactId>webdriver</artifactId>
+	<packaging>jar</packaging>
+	<name>Popper Framework Webdriver</name>
+	<description>Implementation of Popper Framework to create page Objects for Webdriver pages</description>
 	<dependencies>
 		<dependency>
 			<groupId>org.popperfw</groupId>
@@ -20,9 +20,11 @@
 			<version>${project.version}</version>
 		</dependency>
 		<dependency>
-			<groupId>org.netbeans</groupId>
-			<artifactId>jemmy</artifactId>
-			<version>2.2.7.5</version>
+			<groupId>org.seleniumhq.selenium</groupId>
+			<artifactId>selenium-java</artifactId>
+			<version>2.24.1</version>
+			<scope>provided</scope>
+			<type>pom</type>
 		</dependency>
 		<dependency>
 			<groupId>log4j</groupId>
@@ -30,16 +32,16 @@
 			<version>1.2.13</version>
 		</dependency>
 		<dependency>
-			<groupId>commons-lang</groupId>
-			<artifactId>commons-lang</artifactId>
-			<version>2.6</version>
-		</dependency>
-		<dependency>
 			<groupId>junit</groupId>
 			<artifactId>junit</artifactId>
 			<version>4.10</version>
 			<type>jar</type>
 			<scope>test</scope>
+		</dependency>
+		<dependency>
+			<groupId>commons-lang</groupId>
+			<artifactId>commons-lang</artifactId>
+			<version>2.6</version>
 		</dependency>
 	</dependencies>
 </project>
