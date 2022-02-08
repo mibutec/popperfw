@@ -4,7 +4,7 @@
 	<groupId>org.popperfw</groupId>
 	<artifactId>parent</artifactId>
 	<packaging>pom</packaging>
-	<version>0.9.1-SNAPSHOT</version>
+	<version>0.10.0</version>
 	<name>Popper Framework Parent</name>
 	<description>Parent Pom of popper framework</description>
 	<url>http://popperfw.org/</url>
@@ -39,7 +39,7 @@
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-compiler-plugin</artifactId>
-				<version>3.0</version>
+				<version>3.9.0</version>
 				<configuration>
 					<source>1.8</source>
 					<target>1.8</target>
@@ -133,6 +133,17 @@
 					</tagBase>
 				</configuration>
 			</plugin>
+			<plugin>
+              <groupId>org.sonatype.plugins</groupId>
+              <artifactId>nexus-staging-maven-plugin</artifactId>
+              <version>1.6.8</version>
+              <extensions>true</extensions>
+              <configuration>
+                <serverId>ossrh</serverId>
+                <nexusUrl>https://oss.sonatype.org/</nexusUrl>
+                <stagingProfileId>2fb5c4afd4ee2d</stagingProfileId>
+              </configuration>
+            </plugin>
 		</plugins>
 	</build>
 

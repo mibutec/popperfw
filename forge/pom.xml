@@ -5,7 +5,7 @@
 	<parent>
 		<groupId>org.popperfw</groupId>
 		<artifactId>parent</artifactId>
-		<version>0.9.1-SNAPSHOT</version>
+		<version>0.10.0</version>
 	</parent>
 
 	<artifactId>forge</artifactId>
@@ -31,7 +31,7 @@
 		<dependency>
 			<groupId>org.javassist</groupId>
 			<artifactId>javassist</artifactId>
-			<version>3.27.0-GA</version>
+			<version>3.28.0-GA</version>
 		</dependency>
 		<dependency>
 			<groupId>junit</groupId>

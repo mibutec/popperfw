@@ -18,6 +18,7 @@ package org.popper.forge;
 
 import java.lang.reflect.Method;
 import java.lang.reflect.Modifier;
+import java.security.ProtectionDomain;
 import java.util.Arrays;
 import java.util.HashSet;
 import java.util.List;
@@ -103,7 +104,14 @@ public class ClassCreator {
 				addField(evalClass, requiredField);
 			}
 
-			return (Class<T>) evalClass.toClass(classLoaderProvider.provideClassLoader(blankClass, furtherInterfaces), this.getClass().getProtectionDomain());
+            ClassLoader classLoader = classLoaderProvider.provideClassLoader(blankClass, furtherInterfaces);
+            ProtectionDomain protectionDomain = this.getClass().getProtectionDomain();
+            ClassPool cp = evalClass.getClassPool();
+            if (classLoader == null) {
+                classLoader = cp.getClassLoader();
+            }
+            Class<?> class1 = (Class<?>) cp.toClass(evalClass, blankClass, classLoader, protectionDomain);
+            return (Class<T>) class1;
 		} catch (CannotCompileException | NotFoundException e) {
 			throw new CantCreateClassException("error creating class " + implName + " of blank type " + blankClass.getName(), e);
 		} finally {
