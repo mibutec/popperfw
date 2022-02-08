@@ -25,7 +25,8 @@ import java.util.Map;
 import java.util.stream.Collectors;
 
 import org.apache.commons.lang.StringUtils;
-import org.apache.log4j.Logger;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
@@ -44,7 +45,7 @@ import org.popper.fw.webdriver.elements.impl.WebElementReference;
 public abstract class AbstractLocatorAnnotationProcessor<A extends Annotation> implements
 		IAnnotationProcessor<A, Object>, ReturnTypeFactory<A, WebElement> {
 	
-	protected final Logger log = Logger.getLogger(getClass());
+	protected final Logger log = LogManager.getLogger(getClass());
 	
 	protected final WebdriverContext context;
 	
@@ -98,7 +99,8 @@ public abstract class AbstractLocatorAnnotationProcessor<A extends Annotation> i
 		return Arrays.stream(split).collect(Collectors.joining(" "));
 	}
 	
-	public Object createObject(A annotation, LocatorContextInformation info, Class<?> type, WebElement webElement) {
+	@Override
+    public Object createObject(A annotation, LocatorContextInformation info, Class<?> type, WebElement webElement) {
 		final String locatorName = getName(info.getMethod(), annotation);
 		PageObjectImplementation parent = info.getParent();
 		By by = getBy(annotation, info);

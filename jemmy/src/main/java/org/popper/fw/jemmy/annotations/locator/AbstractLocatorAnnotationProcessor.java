@@ -25,7 +25,8 @@ import java.util.Map;
 import java.util.stream.Collectors;
 
 import org.apache.commons.lang.StringUtils;
-import org.apache.log4j.Logger;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.netbeans.jemmy.ComponentChooser;
 import org.netbeans.jemmy.operators.ContainerOperator;
 import org.netbeans.jemmy.operators.Operator;
@@ -48,7 +49,7 @@ import org.popper.fw.jemmy.elements.impl.JemmyElementReference;
 public abstract class AbstractLocatorAnnotationProcessor<A extends Annotation>
         implements IAnnotationProcessor<A, Object>, ReturnTypeFactory<A, ContainerOperator> {
 
-    protected final Logger log = Logger.getLogger(getClass());
+    protected final Logger log = LogManager.getLogger(getClass());
 
     protected final JemmyContext context;
 
