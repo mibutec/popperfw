@@ -101,7 +101,7 @@ public class PageObjectImplementation implements InvocationHandler,
     	                .bindTo(proxy)
     	                .invokeWithArguments(args);
 			} else {
-			      MethodType mt = MethodType.methodType(method.getReturnType());
+                MethodType mt = MethodType.methodType(method.getReturnType(), method.getParameterTypes());
 			      return MethodHandles.lookup()
 			          .findSpecial(declaringClass, method.getName(), mt, declaringClass)
 			          .bindTo(proxy)

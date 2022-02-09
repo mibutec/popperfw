@@ -16,8 +16,6 @@
  */
 package org.popper.inttest;
 
-import junit.framework.Assert;
-
 import org.junit.Test;
 import org.popper.fw.NoGenericTypeAllowedException;
 import org.popper.fw.element.ILabel;
@@ -39,6 +37,8 @@ import org.popper.testpos.GenericPo.WrongGenerichandling;
 import org.popper.testpos.ManyTypesPO;
 import org.popper.testpos.ManyTypesWithElementFactoryPO;
 import org.popper.testpos.ManyWebTypesPO;
+
+import junit.framework.Assert;
 
 public class ReturnTypeTest extends AbstractIntTest {
 	@Test
@@ -127,6 +127,11 @@ public class ReturnTypeTest extends AbstractIntTest {
 		Assert.assertEquals(defaultMethodPo.helloWorld(), "Hello world");
 	}
 	
+    @Test
+    public void testCreateProxyOnClass() {
+        factory.createPage(ClassBasedPo.class);
+    }
+
 	@Page
 	public static interface NotExistingPo {
 		@Locator(id="notExisting")
@@ -139,4 +144,9 @@ public class ReturnTypeTest extends AbstractIntTest {
 			return "Hello world";
 		}
 	}
+
+    @Page
+    public static class ClassBasedPo {
+
+    }
 }

@@ -16,11 +16,11 @@
  */
 package org.popper.inttest;
 
-import junit.framework.Assert;
-
 import org.junit.Test;
 import org.popper.testpos.DefaultAnnotationsWithParametersPO;
 import org.popper.testpos.DefaultAnnotationsWithParametersShortcutPO;
+
+import junit.framework.Assert;
 
 public class ParameterTest extends AbstractIntTest {
 	@Test
@@ -40,4 +40,34 @@ public class ParameterTest extends AbstractIntTest {
 		Assert.assertEquals("xpathLocator", defaultAnnotationPo.xpathLocatorLabel("name", "xpathLocator").text());
 		Assert.assertEquals("classLocator", defaultAnnotationPo.classLocatorLabel("class", "cator").text());
 	}
+
+    @Test
+    public void testDefaultMethodWithParameters() {
+        DefaultAnnotationsWithParametersShortcutPO defaultAnnotationPo = factory
+                .createPage(DefaultAnnotationsWithParametersShortcutPO.class);
+        Assert.assertEquals("ok", defaultAnnotationPo.returnSomethingWithParameters("param"));
+    }
+
+    @Test
+    public void testDefaultMethodWithoutParameters() {
+        DefaultAnnotationsWithParametersShortcutPO defaultAnnotationPo = factory
+                .createPage(DefaultAnnotationsWithParametersShortcutPO.class);
+        Assert.assertEquals("ok", defaultAnnotationPo.returnSomethingWithoutParameters());
+    }
+
+    @Test
+    public void testDefaultVoidMethodWithParameters() {
+        DefaultAnnotationsWithParametersShortcutPO defaultAnnotationPo = factory
+                .createPage(DefaultAnnotationsWithParametersShortcutPO.class);
+        // should not throw an exception
+        defaultAnnotationPo.doSomethingWithParameters("param");
+    }
+
+    @Test
+    public void testDefaultVoidMethodWithoutParameters() {
+        DefaultAnnotationsWithParametersShortcutPO defaultAnnotationPo = factory
+                .createPage(DefaultAnnotationsWithParametersShortcutPO.class);
+        // should not throw an exception
+        defaultAnnotationPo.doSomethingWithoutParameters();
+    }
 }

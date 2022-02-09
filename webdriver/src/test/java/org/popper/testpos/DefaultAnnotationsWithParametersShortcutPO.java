@@ -36,4 +36,18 @@ public interface DefaultAnnotationsWithParametersShortcutPO {
 	// calling classLocator("call", "cator") results in ".callidLocator"
 	@Locator(name="ClassLocator", cssSelector=".classLocator")
 	ILabel classLocatorLabel(String part1, String part2);
+
+    default String returnSomethingWithParameters(String param) {
+        return "ok";
+    }
+
+    default String returnSomethingWithoutParameters() {
+        return "ok";
+    }
+
+    default void doSomethingWithParameters(String param) {
+    }
+
+    default void doSomethingWithoutParameters() {
+    }
 }
