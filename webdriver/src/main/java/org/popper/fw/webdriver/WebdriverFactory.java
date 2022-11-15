@@ -51,9 +51,9 @@ public class WebdriverFactory implements IPoFactory {
 	}
 
 	public <T extends Object> T createPo(Class<T> type, String name, By by,
-			PageObjectImplementation parent, WebElement webElement) {
+			PageObjectImplementation parent, SearchContext searchContext) {
 		PageObjectImplementation poi = WebdriverPageObjectHelper.createPageObjectImplementation(type, by, name, parent, context,
-					webElement);
+					searchContext);
 		
 		return createProxy(type, poi);
 	}
