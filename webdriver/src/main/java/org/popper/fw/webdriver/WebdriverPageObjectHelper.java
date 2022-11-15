@@ -24,9 +24,9 @@ import org.popper.fw.webdriver.annotations.Frame.FramePoExtension;
 
 public class WebdriverPageObjectHelper {
 	public static PageObjectImplementation createPageObjectImplementation(Class<?> basicClass, By searchContextBy, String name,
-			PageObjectImplementation parent, WebdriverContext context, WebElement webElement) {
+			PageObjectImplementation parent, WebdriverContext context, SearchContext searchContext) {
 		PageObjectImplementation poi = new PageObjectImplementation(context, basicClass, name, parent);
-		poi.addExtension(new WebdriverPoExtension(context, webElement, searchContextBy));
+		poi.addExtension(new WebdriverPoExtension(context, searchContext, searchContextBy));
 		
 		return poi;
 	}
@@ -35,8 +35,8 @@ public class WebdriverPageObjectHelper {
 		openFrame(poi);
 		
 		WebdriverPoExtension ext = poi.getExtension(WebdriverPoExtension.class);
-		if (ext.webElement != null) {
-			return ext.webElement;
+		if (ext.searchContext != null) {
+			return ext.searchContext;
 		}
 
 		if (poi.getParent() == null || ext.searchContextBy == null) {
@@ -68,14 +68,14 @@ public class WebdriverPageObjectHelper {
 	public static class WebdriverPoExtension {
 		public final WebdriverContext context;
 
-		public final WebElement webElement;
+		public final SearchContext searchContext;
 		
 		public final By searchContextBy;
 
-		protected WebdriverPoExtension(WebdriverContext context, WebElement webElement, By searchContextBy) {
+		protected WebdriverPoExtension(WebdriverContext context, SearchContext searchContext, By searchContextBy) {
 			super();
 			this.context = context;
-			this.webElement = webElement;
+			this.searchContext = searchContext;
 			this.searchContextBy = searchContextBy;
 		}
 	}
