@@ -18,8 +18,6 @@ package org.popper.fw.webdriver;
 
 import java.util.List;
 
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
 import org.openqa.selenium.By;
 import org.openqa.selenium.NoSuchElementException;
 import org.openqa.selenium.SearchContext;
@@ -30,6 +28,8 @@ import org.popper.fw.impl.PageObjectImplementation;
 import org.popper.fw.interfaces.IClassResolver;
 import org.popper.fw.interfaces.IPoFactory;
 import org.popper.fw.webdriver.WebdriverPageObjectHelper.WebdriverPoExtension;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 /**
  * This class holds the global WebDriver instance for reuse between different
@@ -42,8 +42,7 @@ public class WebdriverContext extends AbstractPopperContext implements IClassRes
 	/*
 	 * a logger instance for this class
 	 */
-	private static final transient Logger logger = LogManager
-			.getLogger(WebdriverContext.class);
+	private static final transient Logger logger = LoggerFactory.getLogger(WebdriverContext.class);
 	
 	private IWebdriverConfig config = new DefaultWebdriverConfig();
 	

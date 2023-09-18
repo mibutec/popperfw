@@ -16,8 +16,8 @@
  */
 package org.popper.inttest;
 
-import org.junit.After;
-import org.junit.Before;
+import org.junit.jupiter.api.AfterEach;
+import org.junit.jupiter.api.BeforeEach;
 import org.popper.fw.interfaces.IPoFactory;
 import org.popper.fw.jemmy.JemmyContext;
 
@@ -32,7 +32,7 @@ public abstract class AbstractJemmyTest {
         this.appClass = appClass;
     }
 
-    @Before
+    @BeforeEach
     public void setup() {
         context = new JemmyContext(appClass);
         context.setRelevantTimeouts(2500);
@@ -40,7 +40,7 @@ public abstract class AbstractJemmyTest {
         context.start();
     }
 
-    @After
+    @AfterEach
     public void stopApplication() {
         context.stop();
     }

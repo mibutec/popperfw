@@ -1,212 +1,234 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
-	<modelVersion>4.0.0</modelVersion>
-	<groupId>org.popperfw</groupId>
-	<artifactId>parent</artifactId>
-	<packaging>pom</packaging>
-	<version>0.11.1-SNAPSHOT</version>
-	<name>Popper Framework Parent</name>
-	<description>Parent Pom of popper framework</description>
-	<url>http://popperfw.org/</url>
-	<licenses>
-		<license>
-			<name>The Apache Software License, Version 2.0</name>
-			<url>http://www.apache.org/licenses/LICENSE-2.0.txt</url>
-			<distribution>repo</distribution>
-		</license>
-	</licenses>
-	<scm>
-		<url>https://svn.code.sf.net/p/popperfw/svn/trunk/core</url>
-		<connection>scm:svn:https://svn.code.sf.net/p/popperfw/svn/trunk/core</connection>
-	</scm>
-	<developers>
-		<developer>
-			<id>1</id>
-			<name>Michael Bulla</name>
-			<email>michaelbulla@gmail.com</email>
-		</developer>
-	</developers>
-	
-	<modules>
-		<module>forge</module>
-		<module>core</module>
-		<module>webdriver</module>
-		<module>jemmy</module>
-	</modules>
-	
-	<dependencyManagement>
-	   <dependencies>
-          <dependency>
-            <groupId>org.apache.logging.log4j</groupId>
-            <artifactId>log4j-core</artifactId>
-            <version>2.17.1</version>
-          </dependency>
-          <dependency>
-			<groupId>junit</groupId>
-			<artifactId>junit</artifactId>
-			<version>4.13.1</version>
-			<scope>test</scope>
-          </dependency>
-          <dependency>
-			<groupId>org.javassist</groupId>
-			<artifactId>javassist</artifactId>
-			<version>3.28.0-GA</version>
-		  </dependency>
-		  <dependency>
-			<groupId>org.jgrapht</groupId>
-			<artifactId>jgrapht-core</artifactId>
-			<version>0.9.2</version>
-		  </dependency>
-	   </dependencies>
-	</dependencyManagement>
-	
-	<build>
-		<plugins>
-			<plugin>
-				<groupId>org.apache.maven.plugins</groupId>
-				<artifactId>maven-compiler-plugin</artifactId>
-				<version>3.9.0</version>
-				<configuration>
-					<source>1.8</source>
-					<target>1.8</target>
-					<encoding>UTF-8</encoding>
-				</configuration>
-			</plugin>
-			 <plugin>
-        <groupId>org.apache.maven.plugins</groupId>
-        <artifactId>maven-antrun-plugin</artifactId>
-		 <version>1.6</version>
-        <executions>
-          <execution>
-            <id>check-license-header</id>
-            <phase>process-sources</phase>
-			
-            <goals>
-              <goal>run</goal>
-            </goals>
-            <configuration>
-              <target>
-                <fileset dir="${basedir}/src" includes="**/*.java" excludes="**/TypeResolver.java" id="missinglicense.fileset">
-                  <not>
-                    <and>
-                      <contains text="Copyright (C) 2013 - 2018 Michael Bulla [michaelbulla@gmail.com]"/>
-                      <contains text="Licensed under the Apache License, Version 2.0"/>
-                      <contains text="http://www.apache.org/licenses/LICENSE-2.0"/>
-                    </and>
-                  </not>
-                </fileset>
-                <pathconvert property="missing" refid="missinglicense.fileset"/>
-                <fail message="Invalid license info in: ${missing}">
-                  <condition>
-                    <not>
-                      <equals arg1="${missing}" arg2=""/>
-                    </not>
-                  </condition>
-                </fail>
-              </target>
-            </configuration>
-          </execution>
-        </executions>
-</plugin>
-			<plugin>
-				<groupId>org.apache.maven.plugins</groupId>
-				<artifactId>maven-eclipse-plugin</artifactId>
-				<version>2.9</version>
-				<configuration>
-					<downloadSources>true</downloadSources>
-					<downloadJavadocs>true</downloadJavadocs>
-					<wtpversion>2.0</wtpversion>
-				</configuration>
-			</plugin>
-			<plugin>
-				<groupId>org.apache.maven.plugins</groupId>
-				<artifactId>maven-source-plugin</artifactId>
-				<executions>
-					<execution>
-						<id>attach-sources</id>
-						<goals>
-							<goal>jar</goal>
-						</goals>
-					</execution>
-				</executions>
-			</plugin>
-			<plugin>
-				<groupId>org.apache.maven.plugins</groupId>
-				<artifactId>maven-javadoc-plugin</artifactId>
-				<version>3.2.0</version>
-				<configuration>
-				    <source>1.8</source>
-					<encoding>UTF-8</encoding>
-					<additionalparam>-Xdoclint:none</additionalparam>
-					<additionalOptions>-Xdoclint:none</additionalOptions>
-					<additionalJOption>-Xdoclint:none</additionalJOption>
-				</configuration>
-				<executions>
-					<execution>
-						<id>attach-javadocs</id>
-						<goals>
-							<goal>jar</goal>
-						</goals>
-					</execution>
-				</executions>
-			</plugin>
-			<plugin>
-				<artifactId>maven-release-plugin</artifactId>
-				<version>2.4.2</version>
-				<configuration>
-					<tagBase>
-						https://svn.code.sf.net/p/popperfw/svn/tags/
-					</tagBase>
-				</configuration>
-			</plugin>
-			<plugin>
-              <groupId>org.sonatype.plugins</groupId>
-              <artifactId>nexus-staging-maven-plugin</artifactId>
-              <version>1.6.8</version>
-              <extensions>true</extensions>
-              <configuration>
-                <serverId>ossrh</serverId>
-                <nexusUrl>https://oss.sonatype.org/</nexusUrl>
-                <stagingProfileId>2fb5c4afd4ee2d</stagingProfileId>
-              </configuration>
-            </plugin>
-		</plugins>
-	</build>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+    <groupId>org.popperfw</groupId>
+    <artifactId>parent</artifactId>
+    <packaging>pom</packaging>
+    <version>0.11.1-SNAPSHOT</version>
+    <name>Popper Framework Parent</name>
+    <description>Parent Pom of popper framework</description>
+    <url>http://popperfw.org/</url>
 
-	<profiles>
-		<profile>
-			<id>sign</id>
-			<build>
-				<plugins>
-					<plugin>
-						<groupId>org.apache.maven.plugins</groupId>
-						<artifactId>maven-gpg-plugin</artifactId>
-						<version>1.6</version>
-						<executions>
-							<execution>
-								<id>sign-artifacts</id>
-								<phase>verify</phase>
-								<goals>
-									<goal>sign</goal>
-								</goals>
-							</execution>
-						</executions>
-					</plugin>
-				</plugins>
-			</build>
-		</profile>
-	</profiles>
-	
-	<distributionManagement>
-		<snapshotRepository>
-			<id>ossrh</id>
-			<name>Nexus Snapshot Repository</name>
-			<url>https://oss.sonatype.org/content/repositories/snapshots</url>
-		</snapshotRepository>
-		<repository>
-			<id>ossrh</id>
-			<name>Nexus Release Repository</name>
-			<url>https://oss.sonatype.org/service/local/staging/deploy/maven2/</url>
-		</repository>
-	</distributionManagement>
+    <licenses>
+        <license>
+            <name>The Apache Software License, Version 2.0</name>
+            <url>http://www.apache.org/licenses/LICENSE-2.0.txt</url>
+            <distribution>repo</distribution>
+        </license>
+    </licenses>
+
+    <scm>
+        <url>https://svn.code.sf.net/p/popperfw/svn/trunk/core</url>
+        <connection>scm:svn:https://svn.code.sf.net/p/popperfw/svn/trunk/core</connection>
+    </scm>
+
+    <developers>
+        <developer>
+            <id>1</id>
+            <name>Michael Bulla</name>
+            <email>michaelbulla@gmail.com</email>
+        </developer>
+    </developers>
+
+    <properties>
+        <java.version>1.8</java.version>
+    </properties>
+    
+    <modules>
+        <module>forge</module>
+        <module>core</module>
+        <module>webdriver</module>
+        <module>jemmy</module>
+    </modules>
+
+    <dependencyManagement>
+        <dependencies>
+            <dependency>
+                <groupId>org.slf4j</groupId>
+                <artifactId>slf4j-api</artifactId>
+                <version>2.0.9</version>
+            </dependency>
+            <dependency>
+                <groupId>ch.qos.logback</groupId>
+                <artifactId>logback-classic</artifactId>
+                <version>1.4.11</version>
+                <scope>runtime</scope>
+            </dependency>
+            <dependency>
+                <groupId>org.junit.jupiter</groupId>
+                <artifactId>junit-jupiter-engine</artifactId>
+                <version>5.10.0</version>
+                <scope>test</scope>
+            </dependency>
+            <dependency>
+                <groupId>org.javassist</groupId>
+                <artifactId>javassist</artifactId>
+                <version>3.29.2-GA</version>
+            </dependency>
+            <dependency>
+                <groupId>org.jgrapht</groupId>
+                <artifactId>jgrapht-core</artifactId>
+                <version>1.5.2</version>
+            </dependency>
+            <dependency>
+                <groupId>commons-lang</groupId>
+                <artifactId>commons-lang</artifactId>
+                <version>2.6</version>
+            </dependency>
+        </dependencies>
+    </dependencyManagement>
+
+    <build>
+        <plugins>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-compiler-plugin</artifactId>
+                <version>3.11.0</version>
+                <configuration>
+                    <source>${java.version}</source>
+                    <target>${java.version}</target>
+                    <encoding>UTF-8</encoding>
+                </configuration>
+            </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-antrun-plugin</artifactId>
+                <version>1.6</version>
+                <executions>
+                    <execution>
+                        <id>check-license-header</id>
+                        <phase>process-sources</phase>
+
+                        <goals>
+                            <goal>run</goal>
+                        </goals>
+                        <configuration>
+                            <target>
+                                <fileset dir="${basedir}/src" includes="**/*.java" excludes="**/TypeResolver.java"
+                                         id="missinglicense.fileset">
+                                    <not>
+                                        <and>
+                                            <contains
+                                                    text="Copyright (C) 2013 - 2018 Michael Bulla [michaelbulla@gmail.com]"/>
+                                            <contains text="Licensed under the Apache License, Version 2.0"/>
+                                            <contains text="http://www.apache.org/licenses/LICENSE-2.0"/>
+                                        </and>
+                                    </not>
+                                </fileset>
+                                <pathconvert property="missing" refid="missinglicense.fileset"/>
+                                <fail message="Invalid license info in: ${missing}">
+                                    <condition>
+                                        <not>
+                                            <equals arg1="${missing}" arg2=""/>
+                                        </not>
+                                    </condition>
+                                </fail>
+                            </target>
+                        </configuration>
+                    </execution>
+                </executions>
+            </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-eclipse-plugin</artifactId>
+                <version>2.9</version>
+                <configuration>
+                    <downloadSources>true</downloadSources>
+                    <downloadJavadocs>true</downloadJavadocs>
+                    <wtpversion>2.0</wtpversion>
+                </configuration>
+            </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-source-plugin</artifactId>
+                <version>3.3.0</version>
+                <executions>
+                    <execution>
+                        <id>attach-sources</id>
+                        <goals>
+                            <goal>jar</goal>
+                        </goals>
+                    </execution>
+                </executions>
+            </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-javadoc-plugin</artifactId>
+                <version>3.2.0</version>
+                <configuration>
+                    <source>1.8</source>
+                    <encoding>UTF-8</encoding>
+                    <additionalparam>-Xdoclint:none</additionalparam>
+                    <additionalOptions>-Xdoclint:none</additionalOptions>
+                    <additionalJOption>-Xdoclint:none</additionalJOption>
+                </configuration>
+                <executions>
+                    <execution>
+                        <id>attach-javadocs</id>
+                        <goals>
+                            <goal>jar</goal>
+                        </goals>
+                    </execution>
+                </executions>
+            </plugin>
+            <plugin>
+                <artifactId>maven-release-plugin</artifactId>
+                <version>2.4.2</version>
+                <configuration>
+                    <tagBase>
+                        https://svn.code.sf.net/p/popperfw/svn/tags/
+                    </tagBase>
+                </configuration>
+            </plugin>
+            <plugin>
+                <groupId>org.sonatype.plugins</groupId>
+                <artifactId>nexus-staging-maven-plugin</artifactId>
+                <version>1.6.8</version>
+                <extensions>true</extensions>
+                <configuration>
+                    <serverId>ossrh</serverId>
+                    <nexusUrl>https://oss.sonatype.org/</nexusUrl>
+                    <stagingProfileId>2fb5c4afd4ee2d</stagingProfileId>
+                </configuration>
+            </plugin>
+        </plugins>
+    </build>
+
+    <profiles>
+        <profile>
+            <id>sign</id>
+            <build>
+                <plugins>
+                    <plugin>
+                        <groupId>org.apache.maven.plugins</groupId>
+                        <artifactId>maven-gpg-plugin</artifactId>
+                        <version>1.6</version>
+                        <executions>
+                            <execution>
+                                <id>sign-artifacts</id>
+                                <phase>verify</phase>
+                                <goals>
+                                    <goal>sign</goal>
+                                </goals>
+                            </execution>
+                        </executions>
+                    </plugin>
+                </plugins>
+            </build>
+        </profile>
+    </profiles>
+
+    <distributionManagement>
+        <snapshotRepository>
+            <id>ossrh</id>
+            <name>Nexus Snapshot Repository</name>
+            <url>https://oss.sonatype.org/content/repositories/snapshots</url>
+        </snapshotRepository>
+        <repository>
+            <id>ossrh</id>
+            <name>Nexus Release Repository</name>
+            <url>https://oss.sonatype.org/service/local/staging/deploy/maven2/</url>
+        </repository>
+    </distributionManagement>
 </project>

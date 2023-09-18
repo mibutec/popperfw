@@ -16,23 +16,26 @@
  */
 package org.popper.fw.webdriver;
 
-import java.io.IOException;
-import java.net.URL;
-import java.util.Locale;
-import java.util.Properties;
-import java.util.concurrent.TimeUnit;
-
 import org.apache.commons.lang.LocaleUtils;
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
+import org.htmlunit.BrowserVersion;
+import org.openqa.selenium.Capabilities;
 import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.chrome.ChromeOptions;
 import org.openqa.selenium.firefox.FirefoxDriver;
+import org.openqa.selenium.firefox.FirefoxOptions;
 import org.openqa.selenium.htmlunit.HtmlUnitDriver;
-import org.openqa.selenium.remote.DesiredCapabilities;
+import org.openqa.selenium.ie.InternetExplorerOptions;
 import org.openqa.selenium.remote.LocalFileDetector;
 import org.openqa.selenium.remote.RemoteWebDriver;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
-import com.gargoylesoftware.htmlunit.BrowserVersion;
+import java.io.IOException;
+import java.net.URL;
+import java.time.Duration;
+import java.time.temporal.ChronoUnit;
+import java.util.Locale;
+import java.util.Properties;
 
 /**
  * This class holds the global WebDriver instance for reuse between different
@@ -45,8 +48,7 @@ public class DefaultWebdriverConfig implements IWebdriverConfig {
 	/*
 	 * a logger instance for this class
 	 */
-	private static final transient Logger logger = LogManager
-			.getLogger(DefaultWebdriverConfig.class);
+	private static final transient Logger logger = LoggerFactory.getLogger(DefaultWebdriverConfig.class);
 
 	/**
 	 * The used browser, default is firefox
@@ -93,7 +95,7 @@ public class DefaultWebdriverConfig implements IWebdriverConfig {
 
 		browser = Browser.valueOf(props.getProperty("browserName"));
 		seleniumHost = props.getProperty("seleniumHost");
-		implicitTimeout = new Integer(props.getProperty("implicitTimeout"));
+		implicitTimeout = Integer.parseInt(props.getProperty("implicitTimeout"));
 		locale = LocaleUtils.toLocale(props.getProperty("browserLanguage"));
 		baseUrl = props.getProperty("baseUrl");
 	}
@@ -155,10 +157,9 @@ public class DefaultWebdriverConfig implements IWebdriverConfig {
 		try {
 			if (browser == Browser.HTML_UNIT
 					|| browser == Browser.HTML_UNIT_NOJS) {
-				BrowserVersion v = BrowserVersion.FIREFOX_3_6;
-				v.setBrowserLanguage(formatLocale(locale));
+				BrowserVersion v = BrowserVersion.FIREFOX;
 				HtmlUnitDriver theDriver = new HtmlUnitDriver(v);
-
+				
 				if (browser != Browser.HTML_UNIT_NOJS) {
 					theDriver.setJavascriptEnabled(true);
 				}
@@ -167,7 +168,7 @@ public class DefaultWebdriverConfig implements IWebdriverConfig {
 				createdDriver = new FirefoxDriver();
 			} else {
 				logger.debug("[setupWebdriver]for:" + browser);
-				DesiredCapabilities caps = getCaps(browser);
+				Capabilities caps = getCaps(browser);
 
 				logger.debug("Next step, now we initialize the driver with the caps with SeleniumServer: "
 						+ getSeleniumHost());
@@ -183,8 +184,7 @@ public class DefaultWebdriverConfig implements IWebdriverConfig {
 			createdDriver
 				.manage()
 				.timeouts()
-				.implicitlyWait(implicitTimeout(),
-					TimeUnit.MILLISECONDS);
+				.implicitlyWait(Duration.of(1, ChronoUnit.MILLIS));
 			
 			return createdDriver;
 		} catch (Exception e) {
@@ -192,17 +192,17 @@ public class DefaultWebdriverConfig implements IWebdriverConfig {
 		}
 	}
 
-	private static DesiredCapabilities getCaps(Browser browser) {
-		DesiredCapabilities caps = null;
+	private static Capabilities getCaps(Browser browser) {
+		Capabilities caps = null;
 
 		if (browser == Browser.REMOTE_INTERNET_EXPLORER) {
 			logger.debug("INTERNET EXPLORER CAPS: " + caps);
-			caps = DesiredCapabilities.internetExplorer();
+			caps = new InternetExplorerOptions();
 		} else if (browser == Browser.CHROME) {
 			logger.debug("CHROME CAPS: " + caps);
-			caps = DesiredCapabilities.chrome();
+			caps = new ChromeOptions();
 		} else {
-			caps = DesiredCapabilities.firefox();
+			caps = new FirefoxOptions();
 			logger.debug("FIREFOX CAPS: " + caps);
 		}
 

@@ -16,7 +16,13 @@
  */
 package org.popper.forge;
 
-import static org.junit.Assert.assertEquals;
+import org.junit.jupiter.api.Test;
+import org.popper.forge.api.IAnnotationProcessor;
+import org.popper.forge.api.ReEvalutateException;
+import org.popper.forge.api.RuntimeContextInformation;
+import org.popper.forge.api.annotations.ImplementedBy;
+import org.popper.forge.api.annotations.RunAfter;
+import org.popper.forge.api.annotations.RunBefore;
 
 import java.lang.annotation.Annotation;
 import java.lang.annotation.ElementType;
@@ -24,14 +30,7 @@ import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
 import java.lang.annotation.Target;
 
-import org.junit.Test;
-import org.popper.forge.ClassForge;
-import org.popper.forge.api.IAnnotationProcessor;
-import org.popper.forge.api.ReEvalutateException;
-import org.popper.forge.api.RuntimeContextInformation;
-import org.popper.forge.api.annotations.ImplementedBy;
-import org.popper.forge.api.annotations.RunAfter;
-import org.popper.forge.api.annotations.RunBefore;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public class AnnotationOrderTest {
 	private ClassForge testee = new ClassForge();

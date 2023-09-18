@@ -25,8 +25,6 @@ import java.util.Map;
 import java.util.stream.Collectors;
 
 import org.apache.commons.lang.StringUtils;
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
@@ -41,11 +39,13 @@ import org.popper.fw.webdriver.WebdriverContext;
 import org.popper.fw.webdriver.WebdriverPageObjectHelper;
 import org.popper.fw.webdriver.annotations.VerifyBy;
 import org.popper.fw.webdriver.elements.impl.WebElementReference;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 public abstract class AbstractLocatorAnnotationProcessor<A extends Annotation> implements
 		IAnnotationProcessor<A, Object>, ReturnTypeFactory<A, WebElement> {
 	
-	protected final Logger log = LogManager.getLogger(getClass());
+	protected final Logger log = LoggerFactory.getLogger(getClass());
 	
 	protected final WebdriverContext context;
 	

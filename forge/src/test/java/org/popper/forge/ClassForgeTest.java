@@ -16,20 +16,20 @@
  */
 package org.popper.forge;
 
-
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertTrue;
+import org.junit.jupiter.api.Test;
+import org.popper.forge.ClassForgeTest.SomeAnnotation.SomeAnnotationImplWithWrongGeneric;
+import org.popper.forge.api.IAnnotationProcessor;
+import org.popper.forge.api.ReEvalutateException;
+import org.popper.forge.api.RuntimeContextInformation;
 
 import java.lang.annotation.ElementType;
 import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
 import java.lang.annotation.Target;
 
-import org.junit.Test;
-import org.popper.forge.ClassForgeTest.SomeAnnotation.SomeAnnotationImplWithWrongGeneric;
-import org.popper.forge.api.IAnnotationProcessor;
-import org.popper.forge.api.ReEvalutateException;
-import org.popper.forge.api.RuntimeContextInformation;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 
 public class ClassForgeTest {
@@ -59,9 +59,11 @@ public class ClassForgeTest {
 		assertEquals("Bye, cruel world", blank.sayBye());
 	}
 	
-	@Test(expected=IllegalStateException.class)
+	@Test
 	public void shouldFailOnWrongReturnTypeForAnnotation() {
-		testee.createInstance(BlankUsingWrongReturnType.class);
+		assertThrows(IllegalStateException.class, ()->{
+			testee.createInstance(BlankUsingWrongReturnType.class);
+		});
 	}
 	
 	@Test
@@ -79,10 +81,12 @@ public class ClassForgeTest {
 		assertEquals(SimpleBlankInterface.class.getName() + "GeilerMacker", blank.getClass().getName());
 	}
 	
-	@Test(expected=IllegalStateException.class)
+	@Test
 	public void shouldProvideMeaningfulErrorMessageWhenUsingWrongAnnotationTypeInProcessor() {
-		BlankForcingWrongAnnotationTypeInProcessor blank = testee.createInstance(BlankForcingWrongAnnotationTypeInProcessor.class);
-		blank.sayHello();
+		assertThrows(IllegalStateException.class, ()->{
+			BlankForcingWrongAnnotationTypeInProcessor blank = testee.createInstance(BlankForcingWrongAnnotationTypeInProcessor.class);
+			blank.sayHello();
+		});
 	}
 	
 	@Test

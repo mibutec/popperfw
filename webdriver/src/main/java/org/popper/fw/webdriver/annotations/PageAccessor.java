@@ -27,14 +27,14 @@ import java.util.Map;
 import java.util.Map.Entry;
 
 import org.apache.commons.lang.StringUtils;
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
 import org.popper.fw.annotations.ImplementedBy;
 import org.popper.fw.impl.ReflectionsUtil;
 import org.popper.fw.interfaces.IAnnotationProcessor;
 import org.popper.fw.interfaces.LocatorContextInformation;
 import org.popper.fw.webdriver.WebdriverContext;
 import org.popper.fw.webdriver.annotations.PageAccessor.PageAccessorImpl;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 @Target({ElementType.METHOD, ElementType.TYPE})
 @Retention(RetentionPolicy.RUNTIME)
@@ -46,7 +46,7 @@ public @interface PageAccessor {
 	public String absoluteUri() default "";
 	
 	public static class PageAccessorImpl implements IAnnotationProcessor<PageAccessor, Void> {
-		protected final Logger log = LogManager.getLogger(getClass());
+		protected final Logger log = LoggerFactory.getLogger(getClass());
 
 		private WebdriverContext context;
 

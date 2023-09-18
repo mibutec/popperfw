@@ -16,7 +16,7 @@
  */
 package org.popper.inttest;
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 import org.popper.fw.NoGenericTypeAllowedException;
 import org.popper.fw.element.ILabel;
 import org.popper.fw.webdriver.annotations.Page;
@@ -38,7 +38,9 @@ import org.popper.testpos.ManyTypesPO;
 import org.popper.testpos.ManyTypesWithElementFactoryPO;
 import org.popper.testpos.ManyWebTypesPO;
 
-import junit.framework.Assert;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.fail;
 
 public class ReturnTypeTest extends AbstractIntTest {
 	@Test
@@ -46,16 +48,16 @@ public class ReturnTypeTest extends AbstractIntTest {
 		ManyTypesPO manyTypes = factory.createPage(ManyTypesPO.class);
 		manyTypes.open();
 		
-		Assert.assertEquals(DefaultButton.class, manyTypes.button().getClass());
-		Assert.assertEquals(DefaultCheckbox.class, manyTypes.checkbox().getClass());
-		Assert.assertEquals(DefaultFileupload.class, manyTypes.fileupload().getClass());
-		Assert.assertEquals(DefaultLabel.class, manyTypes.label().getClass());
-		Assert.assertEquals(DefaultImage.class, manyTypes.image().getClass());
-		Assert.assertEquals(DefaultLink.class, manyTypes.link().getClass());
-		Assert.assertEquals(DefaultRadioButton.class, manyTypes.radiobutton().getClass());
-		Assert.assertEquals(DefaultSelectBox.class, manyTypes.select().getClass());
-		Assert.assertEquals(DefaultTextBox.class, manyTypes.textbox().getClass());
-		Assert.assertEquals(TextArea.class, manyTypes.textarea().getClass());
+		assertEquals(DefaultButton.class, manyTypes.button().getClass());
+		assertEquals(DefaultCheckbox.class, manyTypes.checkbox().getClass());
+		assertEquals(DefaultFileupload.class, manyTypes.fileupload().getClass());
+		assertEquals(DefaultLabel.class, manyTypes.label().getClass());
+		assertEquals(DefaultImage.class, manyTypes.image().getClass());
+		assertEquals(DefaultLink.class, manyTypes.link().getClass());
+		assertEquals(DefaultRadioButton.class, manyTypes.radiobutton().getClass());
+		assertEquals(DefaultSelectBox.class, manyTypes.select().getClass());
+		assertEquals(DefaultTextBox.class, manyTypes.textbox().getClass());
+		assertEquals(TextArea.class, manyTypes.textarea().getClass());
 	}
 
 	@Test
@@ -63,16 +65,16 @@ public class ReturnTypeTest extends AbstractIntTest {
 		ManyWebTypesPO manyTypes = factory.createPage(ManyWebTypesPO.class);
 		manyTypes.open();
 		
-		Assert.assertEquals(DefaultButton.class, manyTypes.button().getClass());
-		Assert.assertEquals(DefaultCheckbox.class, manyTypes.checkbox().getClass());
-		Assert.assertEquals(DefaultFileupload.class, manyTypes.fileupload().getClass());
-		Assert.assertEquals(DefaultLabel.class, manyTypes.label().getClass());
-		Assert.assertEquals(DefaultImage.class, manyTypes.image().getClass());
-		Assert.assertEquals(DefaultLink.class, manyTypes.link().getClass());
-		Assert.assertEquals(DefaultRadioButton.class, manyTypes.radiobutton().getClass());
-		Assert.assertEquals(DefaultSelectBox.class, manyTypes.select().getClass());
-		Assert.assertEquals(DefaultTextBox.class, manyTypes.textbox().getClass());
-		Assert.assertEquals(TextArea.class, manyTypes.textarea().getClass());
+		assertEquals(DefaultButton.class, manyTypes.button().getClass());
+		assertEquals(DefaultCheckbox.class, manyTypes.checkbox().getClass());
+		assertEquals(DefaultFileupload.class, manyTypes.fileupload().getClass());
+		assertEquals(DefaultLabel.class, manyTypes.label().getClass());
+		assertEquals(DefaultImage.class, manyTypes.image().getClass());
+		assertEquals(DefaultLink.class, manyTypes.link().getClass());
+		assertEquals(DefaultRadioButton.class, manyTypes.radiobutton().getClass());
+		assertEquals(DefaultSelectBox.class, manyTypes.select().getClass());
+		assertEquals(DefaultTextBox.class, manyTypes.textbox().getClass());
+		assertEquals(TextArea.class, manyTypes.textarea().getClass());
 	}
 
 	@Test
@@ -80,16 +82,16 @@ public class ReturnTypeTest extends AbstractIntTest {
 		ManyTypesWithElementFactoryPO manyTypes = factory.createPage(ManyTypesWithElementFactoryPO.class);
 		manyTypes.open();
 		
-		Assert.assertEquals(Superelement.class, manyTypes.button().getClass());
-		Assert.assertEquals(Superelement.class, manyTypes.checkbox().getClass());
-		Assert.assertEquals(Superelement.class, manyTypes.fileupload().getClass());
-		Assert.assertEquals(Superelement.class, manyTypes.label().getClass());
-		Assert.assertEquals(Superelement.class, manyTypes.image().getClass());
-		Assert.assertEquals(Superelement.class, manyTypes.link().getClass());
-		Assert.assertEquals(Superelement.class, manyTypes.radiobutton().getClass());
-		Assert.assertEquals(Superelement.class, manyTypes.select().getClass());
-		Assert.assertEquals(Superelement.class, manyTypes.textbox().getClass());
-		Assert.assertEquals(TextArea.class, manyTypes.textarea().getClass());
+		assertEquals(Superelement.class, manyTypes.button().getClass());
+		assertEquals(Superelement.class, manyTypes.checkbox().getClass());
+		assertEquals(Superelement.class, manyTypes.fileupload().getClass());
+		assertEquals(Superelement.class, manyTypes.label().getClass());
+		assertEquals(Superelement.class, manyTypes.image().getClass());
+		assertEquals(Superelement.class, manyTypes.link().getClass());
+		assertEquals(Superelement.class, manyTypes.radiobutton().getClass());
+		assertEquals(Superelement.class, manyTypes.select().getClass());
+		assertEquals(Superelement.class, manyTypes.textbox().getClass());
+		assertEquals(TextArea.class, manyTypes.textarea().getClass());
 	}
 	
 	@Test
@@ -97,7 +99,7 @@ public class ReturnTypeTest extends AbstractIntTest {
 		ManyTypesPO manyTypes = factory.createPage(ManyTypesPO.class);
 		manyTypes.open();
 		
-		Assert.assertEquals(TextArea.class, manyTypes.textareaNoTypeAnnotation().getClass());
+		assertEquals(TextArea.class, manyTypes.textareaNoTypeAnnotation().getClass());
 	}
 	
 	@Test
@@ -107,7 +109,7 @@ public class ReturnTypeTest extends AbstractIntTest {
 
 		try {
 			wrongPo.getSomeElement();
-			Assert.fail("expected execption because of generic return type");
+			fail("expected execption because of generic return type");
 		} catch (NoGenericTypeAllowedException ngtae) {
 			// expected result
 		}
@@ -118,13 +120,13 @@ public class ReturnTypeTest extends AbstractIntTest {
 	@Test
 	public void testIsDisplayedWorks() {
 		NotExistingPo notExistingPo = factory.createPage(NotExistingPo.class);
-		Assert.assertFalse(notExistingPo.notExistingLabel().isDisplayed());
+		assertFalse(notExistingPo.notExistingLabel().isDisplayed());
 	}
 	
 	@Test
 	public void testCanHandleDefaultMethods() {
 		DefaultMethodPo defaultMethodPo = factory.createPage(DefaultMethodPo.class);
-		Assert.assertEquals(defaultMethodPo.helloWorld(), "Hello world");
+		assertEquals(defaultMethodPo.helloWorld(), "Hello world");
 	}
 	
     @Test

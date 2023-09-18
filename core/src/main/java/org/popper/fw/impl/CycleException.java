@@ -20,7 +20,7 @@ import java.lang.annotation.Annotation;
 import java.util.Iterator;
 import java.util.Set;
 
-import org.jgrapht.alg.CycleDetector;
+import org.jgrapht.alg.cycle.CycleDetector;
 import org.jgrapht.graph.DefaultEdge;
 import org.popper.fw.annotations.RunBefore;
 

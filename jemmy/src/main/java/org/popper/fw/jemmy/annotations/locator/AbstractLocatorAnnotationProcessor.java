@@ -25,8 +25,6 @@ import java.util.Map;
 import java.util.stream.Collectors;
 
 import org.apache.commons.lang.StringUtils;
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
 import org.netbeans.jemmy.ComponentChooser;
 import org.netbeans.jemmy.operators.ContainerOperator;
 import org.netbeans.jemmy.operators.Operator;
@@ -40,6 +38,8 @@ import org.popper.fw.interfaces.LocatorContextInformation;
 import org.popper.fw.jemmy.JemmyContext;
 import org.popper.fw.jemmy.JemmyPageObjectHelper.WindowPoExtension;
 import org.popper.fw.jemmy.elements.impl.JemmyElementReference;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 /**
  * Base class for all {@link IAnnotationProcessor}s providing page objects or elements by locators
@@ -49,7 +49,7 @@ import org.popper.fw.jemmy.elements.impl.JemmyElementReference;
 public abstract class AbstractLocatorAnnotationProcessor<A extends Annotation>
         implements IAnnotationProcessor<A, Object>, ReturnTypeFactory<A, ContainerOperator> {
 
-    protected final Logger log = LogManager.getLogger(getClass());
+    protected final Logger log = LoggerFactory.getLogger(getClass());
 
     protected final JemmyContext context;
 

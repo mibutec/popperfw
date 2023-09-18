@@ -19,9 +19,7 @@ package org.popper.inttest;
 import java.util.HashMap;
 import java.util.Map;
 
-import junit.framework.Assert;
-
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 import org.popper.fw.webdriver.annotations.Page;
 import org.popper.fw.webdriver.elements.impl.DefaultLabel;
 import org.popper.fw.webdriver.elements.impl.WebElementReference;
@@ -33,6 +31,9 @@ import org.popper.testpos.OpenedSitePO;
 import org.popper.testpos.VerifyFailedPagePO;
 import org.popper.testpos.VerifyPagePO;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.fail;
+
 
 public class AnnotationTest extends AbstractIntTest {
 
@@ -40,11 +41,11 @@ public class AnnotationTest extends AbstractIntTest {
 	public void testDefaultAnnotations() {
 		DefaultAnnotationsPO defaultAnnotationPo = factory.createPage(DefaultAnnotationsPO.class);
 		defaultAnnotationPo.open();
-		Assert.assertEquals("idLocator", defaultAnnotationPo.idLocatorLabel().text());
-		Assert.assertEquals("classLocator", defaultAnnotationPo.classLocatorLabel().text());
-		Assert.assertEquals("xpathLocator", defaultAnnotationPo.xpathLocatorLabel().text());
+		assertEquals("idLocator", defaultAnnotationPo.idLocatorLabel().text());
+		assertEquals("classLocator", defaultAnnotationPo.classLocatorLabel().text());
+		assertEquals("xpathLocator", defaultAnnotationPo.xpathLocatorLabel().text());
 		assertContains(defaultAnnotationPo.getHtml(), "Lorem Ipsum");
-		Assert.assertEquals("any Title", defaultAnnotationPo.getTitle());
+		assertEquals("any Title", defaultAnnotationPo.getTitle());
 	}
 
 	@Test
@@ -65,13 +66,13 @@ public class AnnotationTest extends AbstractIntTest {
 
 		parameters.put("p2", "v2");
 		opener.openMapWithExistingParameters(parameters);
-		Assert.assertEquals(2, opener.hrefLabel().text().split("\\?").length);
+		assertEquals(2, opener.hrefLabel().text().split("\\?").length);
 		assertContains(opener.hrefLabel().text(), "open.html?para1=val1");
 		assertContains(opener.hrefLabel().text(), "p1=v1");
 		assertContains(opener.hrefLabel().text(), "p2=v2");
 		
 		opener.openMapWithUriFromParent(parameters);
-		Assert.assertEquals(2, opener.hrefLabel().text().split("\\?").length);
+		assertEquals(2, opener.hrefLabel().text().split("\\?").length);
 		assertContains(opener.hrefLabel().text(), "open.html?");
 		assertContains(opener.hrefLabel().text(), "p1=v1");
 		assertContains(opener.hrefLabel().text(), "p2=v2");
@@ -83,9 +84,9 @@ public class AnnotationTest extends AbstractIntTest {
 		poWithFailure.open();
 		try {
 			poWithFailure.footer().inner().moreHierarchy().companyLink().click();
-			Assert.fail("Failure in Locator should lead to Exception");
+			fail("Failure in Locator should lead to Exception");
 		} catch (RuntimeException re) {
-			Assert.assertEquals("Object not found: Login -> Footer (By.id: footer) -> Inner (By.id: inner) -> More Hierarchy (By.selector: .moreHierarchy) -> Company (By.id: wrongId)", re.getMessage());
+			assertEquals("Object not found: Login -> Footer (By.id: footer) -> Inner (By.id: inner) -> More Hierarchy (By.cssSelector: .moreHierarchy) -> Company (By.id: wrongId)", re.getMessage());
 		}
 	}
 	
@@ -94,29 +95,29 @@ public class AnnotationTest extends AbstractIntTest {
 		AbstractClassPO abstractClassPo = factory.createPage(AbstractClassPO.class);
 		abstractClassPo.open();
 		Map<String, String> labels = abstractClassPo.getLabels();
-		Assert.assertEquals("idLocator", labels.get("id"));
-		Assert.assertEquals("classLocator", labels.get("class"));
-		Assert.assertEquals("xpathLocator", labels.get("xpath"));
+		assertEquals("idLocator", labels.get("id"));
+		assertEquals("classLocator", labels.get("class"));
+		assertEquals("xpathLocator", labels.get("xpath"));
 		
 		AbstractClassImplementingPO abstractImplClassPo = factory.createPage(AbstractClassImplementingPO.class);
 		labels = abstractImplClassPo.getLabels();
-		Assert.assertEquals("idLocator", labels.get("id"));
-		Assert.assertEquals("classLocator", labels.get("class"));
-		Assert.assertEquals("xpathLocator", labels.get("xpath"));
+		assertEquals("idLocator", labels.get("id"));
+		assertEquals("classLocator", labels.get("class"));
+		assertEquals("xpathLocator", labels.get("xpath"));
 	}
 	
 	@Test
 	public void testVerifyTitle() {
 		VerifyPagePO verifyPage = factory.createPage(VerifyPagePO.class);
 		verifyPage.open();
-		Assert.assertEquals("alles OK", verifyPage.message().text());
+		assertEquals("alles OK", verifyPage.message().text());
 		
 		VerifyFailedPagePO verifyFailedPage = factory.createPage(VerifyFailedPagePO.class);
 		
 		try {
 			verifyFailedPage.open();
 			verifyFailedPage.message();
-			Assert.fail("verify Page should return an error");
+			fail("verify Page should return an error");
 		} catch (Exception e) {
 			// alles OK
 		}
@@ -126,8 +127,8 @@ public class AnnotationTest extends AbstractIntTest {
 	public void verifyAnnotationsAreInheritedOnMethods() {
 		InheritedPo inheritedPo = factory.createPage(InheritedPo.class);
 		inheritedPo.open();
-		Assert.assertEquals(inheritedPo.idLocatorLabel().text(), "idLocator");
-		Assert.assertEquals(inheritedPo.xpathLocatorLabel().text(), "xpathLocator");
+		assertEquals(inheritedPo.idLocatorLabel().text(), "idLocator");
+		assertEquals(inheritedPo.xpathLocatorLabel().text(), "xpathLocator");
 	}
 	
 	@Test
