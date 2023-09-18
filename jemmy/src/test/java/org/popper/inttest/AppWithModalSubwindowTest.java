@@ -15,14 +15,14 @@
  *
  */
 package org.popper.inttest;
-import static junit.framework.Assert.assertEquals;
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 import org.popper.inttest.apps.AppWithModalSubwindow;
 import org.popper.inttest.pos.AppWithModalSubwindowPo;
 import org.popper.inttest.pos.AppWithModalSubwindowPo.Sub;
 import org.popper.inttest.pos.AppWithModalSubwindowPo.SubSub;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public class AppWithModalSubwindowTest extends AbstractJemmyTest {
 	

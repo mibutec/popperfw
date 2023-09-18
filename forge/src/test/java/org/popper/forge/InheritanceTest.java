@@ -16,10 +16,9 @@
  */
 package org.popper.forge;
 
-import org.junit.Test;
-import org.popper.forge.ClassForge;
+import org.junit.jupiter.api.Test;
 
-import static org.junit.Assert.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public class InheritanceTest {
 	ClassForge testee = new ClassForge();

@@ -16,20 +16,19 @@
  */
 package org.popper.forge;
 
-import static org.junit.Assert.assertEquals;
-
 import java.lang.annotation.ElementType;
 import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
 import java.lang.annotation.Target;
 
-import org.junit.Test;
-import org.popper.forge.ClassForge;
+import org.junit.jupiter.api.Test;
 import org.popper.forge.ReevaluationTest.Counting.CountingImpl;
 import org.popper.forge.ReevaluationTest.Revaluating.RevaluatingImpl;
 import org.popper.forge.api.IAnnotationProcessor;
 import org.popper.forge.api.ReEvalutateException;
 import org.popper.forge.api.RuntimeContextInformation;
+
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public class ReevaluationTest {
 	private ClassForge testee = new ClassForge();

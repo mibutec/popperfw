@@ -22,14 +22,14 @@ import java.lang.reflect.Modifier;
 import java.util.HashMap;
 import java.util.Map;
 
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
 import org.popper.fw.annotations.DefaultConstructor;
 import org.popper.fw.annotations.ElementFactory;
 import org.popper.fw.annotations.Type;
 import org.popper.fw.interfaces.IClassResolver;
 import org.popper.fw.interfaces.IElementFactory;
 import org.popper.fw.interfaces.IPoFactory;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 /**
  * Class instantiating the framework and handling application start
@@ -133,7 +133,7 @@ public abstract class AbstractPopperContext implements IClassResolver {
 	}
 	
 	public static class ObjectInstantiator {
-		private static final Logger log = LogManager.getLogger(ObjectInstantiator.class);
+		private static final Logger log = LoggerFactory.getLogger(ObjectInstantiator.class);
 		
 		public final<T> T instantiateObject(Class<T> type, IClassResolver classResolver, Map<Class<?>, Object> tempResolver) {
 			log.debug("Instantiating Object of class " + type.getName());

@@ -16,13 +16,13 @@
  */
 package org.popper.inttest;
 
-import junit.framework.Assert;
-
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 import org.popper.fw.element.ILabel;
 import org.popper.testpos.FramesetPO;
 import org.popper.testpos.PageWithIframePO;
 import org.popper.testpos.TablePO.User;
+
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 
 public class FrameTest extends AbstractIntTest {
@@ -31,9 +31,9 @@ public class FrameTest extends AbstractIntTest {
 	public void testSimpleIframe() {
 		PageWithIframePO pageWithIframe = factory.createPage(PageWithIframePO.class);
 		pageWithIframe.open();
-		Assert.assertEquals("idLocator", pageWithIframe.iframeById().idLocatorLabel().text());
-		Assert.assertEquals("idLocator", pageWithIframe.iframeByCss().idLocatorLabel().text());
-		Assert.assertEquals("idLocator", pageWithIframe.iframeByXpath().idLocatorLabel().text());
+		assertEquals("idLocator", pageWithIframe.iframeById().idLocatorLabel().text());
+		assertEquals("idLocator", pageWithIframe.iframeByCss().idLocatorLabel().text());
+		assertEquals("idLocator", pageWithIframe.iframeByXpath().idLocatorLabel().text());
 	}
 	
 	@Test
@@ -43,19 +43,19 @@ public class FrameTest extends AbstractIntTest {
 		
 		// test access to frame 1
 		User user1 = frameset.table().userById("1");
-		Assert.assertEquals("Bulla", user1.lastname().text());
-		Assert.assertEquals("Michael", user1.firstname().text());
-		Assert.assertEquals("01.01.1970", user1.birthdate().text());
+		assertEquals("Bulla", user1.lastname().text());
+		assertEquals("Michael", user1.firstname().text());
+		assertEquals("01.01.1970", user1.birthdate().text());
 		
 		// test access to frame 2 containing another frame
-		Assert.assertEquals("idLocator", frameset.iframePage().iframeById().idLocatorLabel().text());
+		assertEquals("idLocator", frameset.iframePage().iframeById().idLocatorLabel().text());
 	}
 	
 	@Test
 	public void testAccessElementDirectlyFromFrame() {
 		PageWithIframePO pageWithIframe = factory.createPage(PageWithIframePO.class);
 		pageWithIframe.open();
-		Assert.assertEquals("idLocator", pageWithIframe.directFrameAccess().text());
+		assertEquals("idLocator", pageWithIframe.directFrameAccess().text());
 	}
 	
 	@Test
@@ -68,11 +68,11 @@ public class FrameTest extends AbstractIntTest {
 		ILabel labelFromAnotherFrame = frameset.iframePage().iframeById().idLocatorLabel();
 		
 		// mix calls to that frame references
-		Assert.assertEquals("Bulla", userFromOneFrame.lastname().text());
-		Assert.assertEquals("idLocator", labelFromAnotherFrame.text());
-		Assert.assertEquals("Michael", userFromOneFrame.firstname().text());
-		Assert.assertEquals("idLocator", frameset.iframePage().iframeById().idLocatorLabel().text());
-		Assert.assertEquals("idLocator", labelFromAnotherFrame.text());
-		Assert.assertEquals("01.01.1970", userFromOneFrame.birthdate().text());
+		assertEquals("Bulla", userFromOneFrame.lastname().text());
+		assertEquals("idLocator", labelFromAnotherFrame.text());
+		assertEquals("Michael", userFromOneFrame.firstname().text());
+		assertEquals("idLocator", frameset.iframePage().iframeById().idLocatorLabel().text());
+		assertEquals("idLocator", labelFromAnotherFrame.text());
+		assertEquals("01.01.1970", userFromOneFrame.birthdate().text());
 	}
 }

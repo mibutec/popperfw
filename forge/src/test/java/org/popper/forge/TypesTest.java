@@ -16,20 +16,21 @@
  */
 package org.popper.forge;
 
-import static org.junit.Assert.assertArrayEquals;
-import static org.junit.Assert.assertEquals;
-
 import java.lang.annotation.ElementType;
 import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
 import java.lang.annotation.Target;
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 import org.popper.forge.TypesTest.NoOp.NoOpProcessor;
 import org.popper.forge.api.IAnnotationProcessor;
 import org.popper.forge.api.ReEvalutateException;
 import org.popper.forge.api.RuntimeContextInformation;
 import org.popper.forge.api.annotations.AnalyzedBy;
+
+import static org.junit.jupiter.api.Assertions.assertArrayEquals;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 public class TypesTest {
 	private ClassForge testee = new ClassForge();
@@ -37,7 +38,7 @@ public class TypesTest {
 	@Test
 	public void shouldHandlePrimitiveTypes() {
 		BlankUsingAlotTypes blank = testee.createInstance(BlankUsingAlotTypes.class);
-		assertEquals(true, blank.booleanMethod(true));
+		assertTrue(blank.booleanMethod(true));
 		assertEquals((byte) 1, blank.byteMethod((byte) 1));
 		assertEquals((char) 1, blank.charMethod((char) 1));
 		assertEquals((short) 1, blank.shortMethod((short) 1));

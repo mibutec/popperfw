@@ -16,17 +16,12 @@
  */
 package org.popper.forge;
 
-import static org.junit.Assert.assertEquals;
-
 import java.lang.annotation.Annotation;
 import java.lang.reflect.Method;
 import java.util.Arrays;
 import java.util.List;
 
-import org.junit.Assert;
-import org.junit.Test;
-import org.popper.forge.ClassForge;
-import org.popper.forge.ClassForgeConfig;
+import org.junit.jupiter.api.Test;
 import org.popper.forge.HelloWorldAnnotation.HelloWorldAnnotationProcessor;
 import org.popper.forge.api.IAnnotationProcessor;
 import org.popper.forge.api.IMethodAnalyzer;
@@ -34,12 +29,14 @@ import org.popper.forge.api.ReEvalutateException;
 import org.popper.forge.api.RuntimeContextInformation;
 import org.popper.forge.api.annotations.AnalyzedBy;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
+
 public class ExtensionTest {
 	@Test
 	public void shouldAllowChangingProcessor() {
 		ClassForge testee = new ClassForge(new ClassForgeConfig().addAnnotationProcessorOverride(HelloWorldAnnotation.class, MyHelloWorldAnnotationProcessor.class));
 		SimpleBlank blank = testee.createInstance(SimpleBlank.class);
-		Assert.assertEquals("Good morning, world", blank.sayHello());
+		assertEquals("Good morning, world", blank.sayHello());
 	}
 	
 	@Test

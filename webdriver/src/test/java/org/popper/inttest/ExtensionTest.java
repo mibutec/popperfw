@@ -22,9 +22,7 @@ import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
 import java.lang.annotation.Target;
 
-import junit.framework.Assert;
-
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 import org.popper.fw.annotations.ImplementedBy;
 import org.popper.fw.annotations.RunAfter;
 import org.popper.fw.annotations.RunBefore;
@@ -36,29 +34,31 @@ import org.popper.inttest.ExtensionTest.Counting.CountingImpl;
 import org.popper.inttest.ExtensionTest.Revaluating.RevaluatingImpl;
 import org.popper.testpos.SelfImplementedLocator;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
+
 public class ExtensionTest extends AbstractIntTest {
 	@Test
 	public void testOwnLocator() {
 		SelfImplementedLocator selfImplementedLocator = factory.createPage(SelfImplementedLocator.class);
 		selfImplementedLocator.open();
 		
-		Assert.assertEquals("first idLocator", selfImplementedLocator.xxx().text());
-		Assert.assertEquals("second idLocator", selfImplementedLocator.xxxWithParam("1").text());
+		assertEquals("first idLocator", selfImplementedLocator.xxx().text());
+		assertEquals("second idLocator", selfImplementedLocator.xxxWithParam("1").text());
 	}
 	
 	@Test
 	public void testReevalutate() {
 		RevaluatingPO po = factory.createPage(RevaluatingPO.class);
-		Assert.assertEquals(Integer.valueOf(3), po.value());
-		Assert.assertEquals(Integer.valueOf(4), po.value());
+		assertEquals(Integer.valueOf(3), po.value());
+		assertEquals(Integer.valueOf(4), po.value());
 	}
 	
 	@Test
 	public void testOrder() {
 		OrderPO po = factory.createPage(OrderPO.class);
-		Assert.assertEquals(Integer.valueOf(3), po.order1());
-		Assert.assertEquals(Integer.valueOf(3), po.order2());
-		Assert.assertEquals(Integer.valueOf(3), po.order3());
+		assertEquals(Integer.valueOf(3), po.order1());
+		assertEquals(Integer.valueOf(3), po.order2());
+		assertEquals(Integer.valueOf(3), po.order3());
 	}
 	
 	@Target(ElementType.METHOD)
@@ -137,7 +137,7 @@ public class ExtensionTest extends AbstractIntTest {
 				return 1;
 			}
 			
-			Assert.assertEquals(Integer.valueOf(value), lastResult);				
+			assertEquals(Integer.valueOf(value), lastResult);
 			return ++lastResult;
 		}
 	}

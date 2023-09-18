@@ -16,12 +16,12 @@
  */
 package org.popper.migration;
 
-import junit.framework.Assert;
-
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 import org.openqa.selenium.WebDriver;
 import org.popper.fw.webdriver.WebdriverContext;
 import org.popper.fw.webdriver.WebdriverFactory;
+
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public class MigrationTest {
 	public static WebdriverFactory popperFactory;
@@ -34,9 +34,9 @@ public class MigrationTest {
 	    login.getUsernameTextbox().sendKeys("user");
 	    login.getPasswordTextbox().sendKeys("secret");
 	    login.getLoginButton().click();
-	    Assert.assertEquals("user", login.getUsernameTextbox().getAttribute("value"));
-	    Assert.assertEquals("secret", login.getPasswordTextbox().getAttribute("value"));
-	    Assert.assertEquals("Index", login.getHeader().getIndexLink().getText());
+	    assertEquals("user", login.getUsernameTextbox().getAttribute("value"));
+	    assertEquals("secret", login.getPasswordTextbox().getAttribute("value"));
+	    assertEquals("Index", login.getHeader().getIndexLink().getText());
 	    WebDriverHolder.closeWebDriver();
 	}
 
@@ -51,9 +51,9 @@ public class MigrationTest {
 	    login.getUsernameTextbox().sendKeys("user");
 	    login.getPasswordTextbox().sendKeys("secret");
 	    login.getLoginButton().click();
-	    Assert.assertEquals("user", login.getUsernameTextbox().getAttribute("value"));
-	    Assert.assertEquals("secret", login.getPasswordTextbox().getAttribute("value"));
-	    Assert.assertEquals("Index", login.getHeader().getIndexLink().getText());
+	    assertEquals("user", login.getUsernameTextbox().getAttribute("value"));
+	    assertEquals("secret", login.getPasswordTextbox().getAttribute("value"));
+	    assertEquals("Index", login.getHeader().getIndexLink().getText());
 	    WebDriverHolder.closeWebDriver();
 	}
 	
@@ -68,9 +68,9 @@ public class MigrationTest {
 	    login.getUsernameTextbox().sendKeys("user");
 	    login.getPasswordTextbox().sendKeys("secret");
 	    login.getLoginButton().click();
-	    Assert.assertEquals("user", login.getUsernameTextbox().getAttribute("value"));
-	    Assert.assertEquals("secret", login.getPasswordTextbox().getAttribute("value"));
-	    Assert.assertEquals("Index", login.getHeader().getIndexLink().getText());
+	    assertEquals("user", login.getUsernameTextbox().getAttribute("value"));
+	    assertEquals("secret", login.getPasswordTextbox().getAttribute("value"));
+	    assertEquals("Index", login.getHeader().getIndexLink().getText());
 	    WebDriverHolder.closeWebDriver();
 	}
 
@@ -85,9 +85,9 @@ public class MigrationTest {
 	    login.getUsernameTextbox().type("user");
 	    login.getPasswordTextbox().type("secret");
 	    login.getLoginButton().click();
-	    Assert.assertEquals("user", login.getUsernameTextbox().getText());
-	    Assert.assertEquals("secret", login.getPasswordTextbox().getText());
-	    Assert.assertEquals("Index", login.getHeader().getIndexLink().getText());
+	    assertEquals("user", login.getUsernameTextbox().getText());
+	    assertEquals("secret", login.getPasswordTextbox().getText());
+	    assertEquals("Index", login.getHeader().getIndexLink().getText());
 	    WebDriverHolder.closeWebDriver();
 	}
 
@@ -102,9 +102,9 @@ public class MigrationTest {
 	    login.getUsernameTextbox().type("user");
 	    login.getPasswordTextbox().type("secret");
 	    login.getLoginButton().click();
-	    Assert.assertEquals("user", login.getUsernameTextbox().getText());
-	    Assert.assertEquals("secret", login.getPasswordTextbox().getText());
-	    Assert.assertEquals("Index", login.getHeader().getIndexLink().getText());
+	    assertEquals("user", login.getUsernameTextbox().getText());
+	    assertEquals("secret", login.getPasswordTextbox().getText());
+	    assertEquals("Index", login.getHeader().getIndexLink().getText());
 	    WebDriverHolder.closeWebDriver();
 	}
 
@@ -119,9 +119,9 @@ public class MigrationTest {
 	    login.getUsernameTextbox().sendKeys("user");
 	    login.getPasswordTextbox().sendKeys("secret");
 	    login.getLoginButton().click();
-	    Assert.assertEquals("user", login.getUsernameTextbox().getAttribute("value"));
-	    Assert.assertEquals("secret", login.getPasswordTextbox().getAttribute("value"));
-	    Assert.assertEquals("Index", login.getHeader().getIndexLink().getText());
+	    assertEquals("user", login.getUsernameTextbox().getAttribute("value"));
+	    assertEquals("secret", login.getPasswordTextbox().getAttribute("value"));
+	    assertEquals("Index", login.getHeader().getIndexLink().getText());
 	    WebDriverHolder.closeWebDriver();
 	}
 }

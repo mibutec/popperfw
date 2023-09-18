@@ -16,9 +16,6 @@
  */
 package org.popper.forge;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNull;
-
 import java.lang.annotation.ElementType;
 import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
@@ -28,13 +25,16 @@ import java.lang.reflect.Method;
 import java.util.Arrays;
 import java.util.Collection;
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 import org.popper.forge.FieldsTest.LastValueProvider.LastValueProviderImpl;
 import org.popper.forge.annotations.Getter;
 import org.popper.forge.annotations.Setter;
 import org.popper.forge.api.IFieldProvidingAnnotationProcessor;
 import org.popper.forge.api.ReEvalutateException;
 import org.popper.forge.api.RuntimeContextInformation;
+
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNull;
 
 public class FieldsTest {
 	private ClassForge testee = new ClassForge();

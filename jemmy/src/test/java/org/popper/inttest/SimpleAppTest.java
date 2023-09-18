@@ -16,14 +16,14 @@
  */
 package org.popper.inttest;
 
-import static junit.framework.Assert.assertEquals;
-import static junit.framework.Assert.assertFalse;
-import static junit.framework.Assert.assertTrue;
-
-import org.junit.Ignore;
-import org.junit.Test;
+import org.junit.jupiter.api.Disabled;
+import org.junit.jupiter.api.Test;
 import org.popper.inttest.apps.SimpleApp;
 import org.popper.inttest.pos.SimpleAppPo;
+
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 public class SimpleAppTest extends AbstractJemmyTest {
 
@@ -44,12 +44,12 @@ public class SimpleAppTest extends AbstractJemmyTest {
     }
 
     @Test
-    @Ignore
+    @Disabled
     public void notExistingIsFast() {
         SimpleAppPo firstJemmyPo = factory.createPage(SimpleAppPo.class);
         long start = System.currentTimeMillis();
         assertFalse(firstJemmyPo.notExistingLabel().isDisplayed());
         long diff = System.currentTimeMillis() - start;
-        assertTrue("Expected not finding an element to be faster than 300 ms, but was " + diff + " ms", diff < 300);
+        assertTrue(diff < 300, "Expected not finding an element to be faster than 300 ms, but was " + diff + " ms");
     }
 }

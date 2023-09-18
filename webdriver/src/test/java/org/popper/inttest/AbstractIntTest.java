@@ -16,30 +16,29 @@
  */
 package org.popper.inttest;
 
-import junit.framework.Assert;
-
-import org.junit.Before;
+import org.junit.jupiter.api.BeforeEach;
 import org.popper.fw.webdriver.WebdriverContext;
 import org.popper.fw.webdriver.WebdriverFactory;
+
+import static org.junit.jupiter.api.Assertions.fail;
 
 public abstract class AbstractIntTest {
 	protected WebdriverFactory factory;
 	
-	@Before
+	@BeforeEach
 	public void setup() {
 		factory = WebdriverContext.getLocalFileFactory("/");
 	}
 	
 	protected void assertEndsWith(String full, String ending) {
 		if (!full.endsWith(ending)) {
-			Assert.fail("Expected " + full + " to end with " + ending + ". But it doesn't");
+			fail("Expected " + full + " to end with " + ending + ". But it doesn't");
 		}
 	}
 	
 	protected void assertContains(String full, String pin) {
 		if (!full.contains(pin)) {
-			Assert.fail("Expected " + full + " to contain " + pin + ". But it doesn't");
+			fail("Expected " + full + " to contain " + pin + ". But it doesn't");
 		}
 	}
-
 }
