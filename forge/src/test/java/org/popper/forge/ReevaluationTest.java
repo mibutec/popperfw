@@ -16,23 +16,23 @@
  */
 package org.popper.forge;
 
-import static org.junit.Assert.assertEquals;
-
 import java.lang.annotation.ElementType;
 import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
 import java.lang.annotation.Target;
 
-import org.junit.Test;
-import org.popper.forge.ClassForge;
+import org.junit.jupiter.api.Test;
 import org.popper.forge.ReevaluationTest.Counting.CountingImpl;
 import org.popper.forge.ReevaluationTest.Revaluating.RevaluatingImpl;
 import org.popper.forge.api.IAnnotationProcessor;
 import org.popper.forge.api.ReEvalutateException;
 import org.popper.forge.api.RuntimeContextInformation;
+import org.popper.forge.api.annotations.ImplementedBy;
+
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public class ReevaluationTest {
-	private ClassForge testee = new ClassForge();
+	private final ClassForge testee = new ClassForge();
 	
 	@Test
 	public void testReevalutate() {
@@ -43,14 +43,14 @@ public class ReevaluationTest {
 	
 	@Target(ElementType.METHOD)
 	@Retention(RetentionPolicy.RUNTIME)
-	@org.popper.forge.api.annotations.ImplementedBy(CountingImpl.class)
-	static @interface Counting {
-		public static class CountingImpl implements IAnnotationProcessor<Counting, Integer> {
+	@ImplementedBy(CountingImpl.class)
+    public @interface Counting {
+		class CountingImpl implements IAnnotationProcessor<Counting, Integer> {
 			private static int counter = 0;
 			
 			@Override
 			public Integer processAnnotation(Counting locatorAnnotation, RuntimeContextInformation info,
-					Integer lastResult) throws ReEvalutateException {
+					Integer lastResult) {
 				return counter++;
 			}
 		}
@@ -58,9 +58,9 @@ public class ReevaluationTest {
 
 	@Target(ElementType.METHOD)
 	@Retention(RetentionPolicy.RUNTIME)
-	@org.popper.forge.api.annotations.ImplementedBy(RevaluatingImpl.class)
-	@interface Revaluating {
-		public static class RevaluatingImpl implements IAnnotationProcessor<Revaluating, Integer> {
+	@ImplementedBy(RevaluatingImpl.class)
+	public @interface Revaluating {
+		class RevaluatingImpl implements IAnnotationProcessor<Revaluating, Integer> {
 			@Override
 			public Integer processAnnotation(Revaluating annotation, RuntimeContextInformation info,
 					Integer lastResult) throws ReEvalutateException {
@@ -73,9 +73,9 @@ public class ReevaluationTest {
 		}
 	}
 	
-	private static interface RevaluatingBlank {
+	private interface RevaluatingBlank {
 		@Counting
 		@Revaluating
-		public Integer value();
+        Integer value();
 	}
 }

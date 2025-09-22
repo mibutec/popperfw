@@ -20,7 +20,7 @@ import java.lang.annotation.Annotation;
 import java.util.Iterator;
 import java.util.Set;
 
-import org.jgrapht.alg.CycleDetector;
+import org.jgrapht.alg.cycle.CycleDetector;
 import org.jgrapht.graph.DefaultEdge;
 import org.popper.fw.annotations.RunBefore;
 
@@ -32,7 +32,6 @@ import org.popper.fw.annotations.RunBefore;
  * @author Michael
  */
 public class CycleException extends RuntimeException {
-	private static final long serialVersionUID = 1L;
 
 	public CycleException(CycleDetector<Annotation, DefaultEdge> cycleDetector) {
         super("found cycle in Lifecycle management: " + cycleToString(cycleDetector));

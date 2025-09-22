@@ -4,9 +4,9 @@
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
- * 
+ *
  *      http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -16,14 +16,12 @@
  */
 package org.popper.inttest;
 
-import static junit.framework.Assert.assertEquals;
-import static junit.framework.Assert.assertFalse;
-import static junit.framework.Assert.assertTrue;
-
-import org.junit.Ignore;
-import org.junit.Test;
+import org.junit.jupiter.api.Disabled;
+import org.junit.jupiter.api.Test;
 import org.popper.inttest.apps.SimpleApp;
 import org.popper.inttest.pos.SimpleAppPo;
+
+import static org.junit.jupiter.api.Assertions.*;
 
 public class SimpleAppTest extends AbstractJemmyTest {
 
@@ -32,7 +30,7 @@ public class SimpleAppTest extends AbstractJemmyTest {
     }
 
     @Test
-    public void someTest() {
+    void someTest() {
         SimpleAppPo firstJemmyPo = factory.createPage(SimpleAppPo.class);
 
         assertEquals("0", firstJemmyPo.cntLabel().getText());
@@ -44,12 +42,12 @@ public class SimpleAppTest extends AbstractJemmyTest {
     }
 
     @Test
-    @Ignore
-    public void notExistingIsFast() {
+    @Disabled
+    void notExistingIsFast() {
         SimpleAppPo firstJemmyPo = factory.createPage(SimpleAppPo.class);
         long start = System.currentTimeMillis();
         assertFalse(firstJemmyPo.notExistingLabel().isDisplayed());
         long diff = System.currentTimeMillis() - start;
-        assertTrue("Expected not finding an element to be faster than 300 ms, but was " + diff + " ms", diff < 300);
+        assertTrue(diff < 300, () -> "Expected not finding an element to be faster than 300 ms, but was " + diff + " ms");
     }
 }

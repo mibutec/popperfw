@@ -16,10 +16,9 @@
  */
 package org.popper.forge;
 
-import org.junit.Test;
-import org.popper.forge.ClassForge;
+import org.junit.jupiter.api.Test;
 
-import static org.junit.Assert.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public class InheritanceTest {
 	ClassForge testee = new ClassForge();
@@ -48,7 +47,7 @@ public class InheritanceTest {
 		assertEquals("Hello, world", blank.sayHello());
 	}
 	
-	private static interface BaseInterface {
+	private interface BaseInterface {
 		@HelloWorldAnnotation
 		String sayHello();
 	}
@@ -58,7 +57,7 @@ public class InheritanceTest {
 		public abstract String sayHello();
 	}
 	
-	private static interface ExtendedInterface extends BaseInterface {
+	private interface ExtendedInterface extends BaseInterface {
 		
 	}
 	
@@ -77,7 +76,7 @@ public class InheritanceTest {
 		
 	}
 	
-	private static interface OverridingAnnotatedMethod extends BaseInterface {
+	private interface OverridingAnnotatedMethod extends BaseInterface {
 		@Override
 		String sayHello();
 	}

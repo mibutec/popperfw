@@ -18,15 +18,11 @@ package org.popper.fw.webdriver.annotations.locator;
 
 import java.lang.annotation.Annotation;
 import java.lang.reflect.Method;
-import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.stream.Collectors;
 
-import org.apache.commons.lang.StringUtils;
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
+import org.apache.commons.lang3.StringUtils;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
@@ -44,8 +40,6 @@ import org.popper.fw.webdriver.elements.impl.WebElementReference;
 
 public abstract class AbstractLocatorAnnotationProcessor<A extends Annotation> implements
 		IAnnotationProcessor<A, Object>, ReturnTypeFactory<A, WebElement> {
-	
-	protected final Logger log = LogManager.getLogger(getClass());
 	
 	protected final WebdriverContext context;
 	
@@ -96,7 +90,7 @@ public abstract class AbstractLocatorAnnotationProcessor<A extends Annotation> i
 
 	protected String getName(Method method, A locator) {
 		String[] split = StringUtils.splitByCharacterTypeCamelCase(method.getName());
-		return Arrays.stream(split).collect(Collectors.joining(" "));
+		return String.join(" ", split);
 	}
 	
 	@Override

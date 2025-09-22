@@ -16,20 +16,20 @@
  */
 package org.popper.forge;
 
-import static org.junit.Assert.assertArrayEquals;
-import static org.junit.Assert.assertEquals;
 
 import java.lang.annotation.ElementType;
 import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
 import java.lang.annotation.Target;
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 import org.popper.forge.TypesTest.NoOp.NoOpProcessor;
 import org.popper.forge.api.IAnnotationProcessor;
-import org.popper.forge.api.ReEvalutateException;
 import org.popper.forge.api.RuntimeContextInformation;
 import org.popper.forge.api.annotations.AnalyzedBy;
+
+import static org.junit.jupiter.api.Assertions.assertArrayEquals;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public class TypesTest {
 	private ClassForge testee = new ClassForge();
@@ -49,7 +49,7 @@ public class TypesTest {
 	
 	@Test
 	public void shouldHandleArrayTypes() {
-		BlankUsingAlotArrayTypes blank = testee.createInstance(BlankUsingAlotArrayTypes.class);
+		BlankUsingManyArrayTypes blank = testee.createInstance(BlankUsingManyArrayTypes.class);
 		assertArrayEquals(new boolean[0], blank.booleanMethod(new boolean[0]));
 		assertArrayEquals(new byte[0], blank.byteMethod(new byte[0]));
 		assertArrayEquals(new char[0], blank.charMethod(new char[0]));
@@ -61,7 +61,7 @@ public class TypesTest {
 	}
 	
 	@AnalyzedBy(DefaultMethodAnalyzer.class)
-	private static interface BlankUsingAlotTypes {
+	private interface BlankUsingAlotTypes {
 		@NoOp
 		boolean booleanMethod(boolean s);
 		
@@ -91,7 +91,7 @@ public class TypesTest {
 	}
 	
 	@AnalyzedBy(DefaultMethodAnalyzer.class)
-	private static interface BlankUsingAlotArrayTypes {
+	private interface BlankUsingManyArrayTypes {
 		@NoOp
 		boolean[] booleanMethod(boolean[] s);
 		
@@ -123,12 +123,11 @@ public class TypesTest {
 	@Target(ElementType.METHOD)
 	@Retention(RetentionPolicy.RUNTIME)
 	@org.popper.forge.api.annotations.ImplementedBy(NoOpProcessor.class)
-	public static @interface NoOp {
-		public static class NoOpProcessor implements IAnnotationProcessor<NoOp, Object> {
+	public @interface NoOp {
+		class NoOpProcessor implements IAnnotationProcessor<NoOp, Object> {
 
 			@Override
-			public Object processAnnotation(NoOp locatorAnnotation, RuntimeContextInformation info, Object lastResult)
-					throws ReEvalutateException {
+			public Object processAnnotation(NoOp locatorAnnotation, RuntimeContextInformation info, Object lastResult) {
 				return info.getParameters()[0];
 			}
 			

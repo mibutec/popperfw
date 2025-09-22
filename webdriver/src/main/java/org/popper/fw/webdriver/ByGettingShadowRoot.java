@@ -25,7 +25,6 @@ import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.SearchContext;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
-import org.openqa.selenium.internal.WrapsDriver;
 
 /**
  * By variant, which will delegate to another By for searching, but return the found elements shadow root
@@ -58,9 +57,6 @@ public class ByGettingShadowRoot extends By {
     private static WebDriver getDriver(SearchContext context) {
         if (context instanceof WebDriver) {
             return (WebDriver) context;
-        }
-        if (context instanceof WrapsDriver) {
-            return ((WrapsDriver) context).getWrappedDriver();
         }
         throw new IllegalArgumentException("Cannot get WebDriver from context " + context);
     }

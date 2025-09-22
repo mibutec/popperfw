@@ -20,14 +20,9 @@ import java.awt.Container;
 import java.awt.EventQueue;
 
 
-
-import javax.swing.GroupLayout;
-import javax.swing.GroupLayout.SequentialGroup;
 import javax.swing.BoxLayout;
-import javax.swing.JButton;
 import javax.swing.JComponent;
 import javax.swing.JFrame;
-import javax.swing.JLabel;
 import javax.swing.JPanel;
 
 public abstract class AbstractApp extends JFrame {

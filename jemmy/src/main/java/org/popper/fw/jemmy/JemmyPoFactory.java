@@ -19,12 +19,10 @@ package org.popper.fw.jemmy;
 import java.lang.reflect.Method;
 import java.lang.reflect.Modifier;
 import java.lang.reflect.Proxy;
-import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Map;
-import java.util.stream.Collectors;
 
-import org.apache.commons.lang.StringUtils;
+import org.apache.commons.lang3.StringUtils;
 import org.netbeans.jemmy.ComponentChooser;
 import org.netbeans.jemmy.operators.ContainerOperator;
 import org.popper.fw.helper.AnnotationFinder;
@@ -130,7 +128,7 @@ public class JemmyPoFactory implements IPoFactory {
     private String nameFromPage(String name, Class<?> clazz) {
         if ((name == null) || name.isEmpty()) {
             String[] split = StringUtils.splitByCharacterTypeCamelCase(clazz.getName());
-            return Arrays.stream(split).collect(Collectors.joining(" "));
+            return String.join(" ", split);
         }
         return name;
     }
