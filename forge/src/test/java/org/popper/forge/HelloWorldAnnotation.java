@@ -35,11 +35,10 @@ import org.popper.forge.api.annotations.ImplementedBy;
 @Documented
 @ImplementedBy(HelloWorldAnnotationProcessor.class)
 public @interface HelloWorldAnnotation {
-	public static class HelloWorldAnnotationProcessor implements IAnnotationProcessor<HelloWorldAnnotation, String> {
+	class HelloWorldAnnotationProcessor implements IAnnotationProcessor<HelloWorldAnnotation, String> {
 
 		@Override
-		public String processAnnotation(HelloWorldAnnotation locatorAnnotation, RuntimeContextInformation info, String lastResult)
-				throws ReEvalutateException {
+		public String processAnnotation(HelloWorldAnnotation locatorAnnotation, RuntimeContextInformation info, String lastResult) {
 			return "Hello, world";
 		}
 	}

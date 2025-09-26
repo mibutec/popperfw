@@ -4,9 +4,9 @@
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
- * 
+ *
  *      http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -16,112 +16,112 @@
  */
 package org.popper.migration;
 
-import junit.framework.Assert;
-
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 import org.openqa.selenium.WebDriver;
 import org.popper.fw.webdriver.WebdriverContext;
 import org.popper.fw.webdriver.WebdriverFactory;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
+
 public class MigrationTest {
-	public static WebdriverFactory popperFactory;
-	
-	@Test
-	public void testLegacy() {
-		WebDriver driver = WebDriverHolder.getDriver();
-		driver.get(WebDriverHolder.getBaseUrl() + "/pages/myLogin.html");
-		MyLoginPo login = new MyLoginPo(driver, null);
-	    login.getUsernameTextbox().sendKeys("user");
-	    login.getPasswordTextbox().sendKeys("secret");
-	    login.getLoginButton().click();
-	    Assert.assertEquals("user", login.getUsernameTextbox().getAttribute("value"));
-	    Assert.assertEquals("secret", login.getPasswordTextbox().getAttribute("value"));
-	    Assert.assertEquals("Index", login.getHeader().getIndexLink().getText());
-	    WebDriverHolder.closeWebDriver();
-	}
+    public static WebdriverFactory popperFactory;
 
-	@Test
-	public void testLegacyWithFactory() {
-		WebdriverContext context = new WebdriverContext();
-        context.setConfig(new WebdriverProxyConfig());
-        popperFactory = context.getFactory();
-        WebDriverHolder.getDriver().get(WebDriverHolder.getBaseUrl() + "/pages/myLogin.html");
-		
-		MyLoginPo login = popperFactory.createLegacyPage(MyLoginPo.class, "MyLogin");
-	    login.getUsernameTextbox().sendKeys("user");
-	    login.getPasswordTextbox().sendKeys("secret");
-	    login.getLoginButton().click();
-	    Assert.assertEquals("user", login.getUsernameTextbox().getAttribute("value"));
-	    Assert.assertEquals("secret", login.getPasswordTextbox().getAttribute("value"));
-	    Assert.assertEquals("Index", login.getHeader().getIndexLink().getText());
-	    WebDriverHolder.closeWebDriver();
-	}
-	
-	@Test
-	public void testLegacyWithDeclarations() {
-		WebdriverContext context = new WebdriverContext();
-        context.setConfig(new WebdriverProxyConfig());
-        popperFactory = context.getFactory();
-        WebDriverHolder.getDriver().get(WebDriverHolder.getBaseUrl() + "/pages/myLogin.html");
-		
-		MyLoginPoWithDec login = popperFactory.createPage(MyLoginPoWithDec.class);
-	    login.getUsernameTextbox().sendKeys("user");
-	    login.getPasswordTextbox().sendKeys("secret");
-	    login.getLoginButton().click();
-	    Assert.assertEquals("user", login.getUsernameTextbox().getAttribute("value"));
-	    Assert.assertEquals("secret", login.getPasswordTextbox().getAttribute("value"));
-	    Assert.assertEquals("Index", login.getHeader().getIndexLink().getText());
-	    WebDriverHolder.closeWebDriver();
-	}
+    @Test
+    public void testLegacy() {
+        WebDriver driver = WebDriverHolder.getDriver();
+        driver.get(WebDriverHolder.getBaseUrl() + "/pages/myLogin.html");
+        MyLoginPo login = new MyLoginPo(driver, null);
+        login.getUsernameTextbox().sendKeys("user");
+        login.getPasswordTextbox().sendKeys("secret");
+        login.getLoginButton().click();
+        assertEquals("user", login.getUsernameTextbox().getAttribute("value"));
+        assertEquals("secret", login.getPasswordTextbox().getAttribute("value"));
+        assertEquals("Index", login.getHeader().getIndexLink().getText());
+        WebDriverHolder.closeWebDriver();
+    }
 
-	@Test
-	public void testLegacyWithAsInterfaceDeclarations() {
-		WebdriverContext context = new WebdriverContext();
+    @Test
+    public void testLegacyWithFactory() {
+        WebdriverContext context = new WebdriverContext();
         context.setConfig(new WebdriverProxyConfig());
         popperFactory = context.getFactory();
         WebDriverHolder.getDriver().get(WebDriverHolder.getBaseUrl() + "/pages/myLogin.html");
-		
-		MyLoginAsInterfacePo login = popperFactory.createPage(MyLoginAsInterfacePo.class);
-	    login.getUsernameTextbox().type("user");
-	    login.getPasswordTextbox().type("secret");
-	    login.getLoginButton().click();
-	    Assert.assertEquals("user", login.getUsernameTextbox().getText());
-	    Assert.assertEquals("secret", login.getPasswordTextbox().getText());
-	    Assert.assertEquals("Index", login.getHeader().getIndexLink().getText());
-	    WebDriverHolder.closeWebDriver();
-	}
 
-	@Test
-	public void testLegacyWithCompletyMigrated() {
-		WebdriverContext context = new WebdriverContext();
-        context.setConfig(new WebdriverProxyConfig());
-        popperFactory = context.getFactory();
-        WebDriverHolder.getDriver().get(WebDriverHolder.getBaseUrl() + "/pages/myLogin.html");
-		
-		MyLoginCompletlyMigratedPo login = popperFactory.createPage(MyLoginCompletlyMigratedPo.class);
-	    login.getUsernameTextbox().type("user");
-	    login.getPasswordTextbox().type("secret");
-	    login.getLoginButton().click();
-	    Assert.assertEquals("user", login.getUsernameTextbox().getText());
-	    Assert.assertEquals("secret", login.getPasswordTextbox().getText());
-	    Assert.assertEquals("Index", login.getHeader().getIndexLink().getText());
-	    WebDriverHolder.closeWebDriver();
-	}
+        MyLoginPo login = popperFactory.createLegacyPage(MyLoginPo.class, "MyLogin");
+        login.getUsernameTextbox().sendKeys("user");
+        login.getPasswordTextbox().sendKeys("secret");
+        login.getLoginButton().click();
+        assertEquals("user", login.getUsernameTextbox().getAttribute("value"));
+        assertEquals("secret", login.getPasswordTextbox().getAttribute("value"));
+        assertEquals("Index", login.getHeader().getIndexLink().getText());
+        WebDriverHolder.closeWebDriver();
+    }
 
-	@Test
-	public void testLegacyWitInnerTypeMigrated() {
-		WebdriverContext context = new WebdriverContext();
+    @Test
+    public void testLegacyWithDeclarations() {
+        WebdriverContext context = new WebdriverContext();
         context.setConfig(new WebdriverProxyConfig());
         popperFactory = context.getFactory();
         WebDriverHolder.getDriver().get(WebDriverHolder.getBaseUrl() + "/pages/myLogin.html");
-		
-		MyLoginHeaderMigratedPo login = popperFactory.createLegacyPage(MyLoginHeaderMigratedPo.class, "My Login");
-	    login.getUsernameTextbox().sendKeys("user");
-	    login.getPasswordTextbox().sendKeys("secret");
-	    login.getLoginButton().click();
-	    Assert.assertEquals("user", login.getUsernameTextbox().getAttribute("value"));
-	    Assert.assertEquals("secret", login.getPasswordTextbox().getAttribute("value"));
-	    Assert.assertEquals("Index", login.getHeader().getIndexLink().getText());
-	    WebDriverHolder.closeWebDriver();
-	}
+
+        MyLoginPoWithDec login = popperFactory.createPage(MyLoginPoWithDec.class);
+        login.getUsernameTextbox().sendKeys("user");
+        login.getPasswordTextbox().sendKeys("secret");
+        login.getLoginButton().click();
+        assertEquals("user", login.getUsernameTextbox().getAttribute("value"));
+        assertEquals("secret", login.getPasswordTextbox().getAttribute("value"));
+        assertEquals("Index", login.getHeader().getIndexLink().getText());
+        WebDriverHolder.closeWebDriver();
+    }
+
+    @Test
+    public void testLegacyWithAsInterfaceDeclarations() {
+        WebdriverContext context = new WebdriverContext();
+        context.setConfig(new WebdriverProxyConfig());
+        popperFactory = context.getFactory();
+        WebDriverHolder.getDriver().get(WebDriverHolder.getBaseUrl() + "/pages/myLogin.html");
+
+        MyLoginAsInterfacePo login = popperFactory.createPage(MyLoginAsInterfacePo.class);
+        login.getUsernameTextbox().type("user");
+        login.getPasswordTextbox().type("secret");
+        login.getLoginButton().click();
+        assertEquals("user", login.getUsernameTextbox().getText());
+        assertEquals("secret", login.getPasswordTextbox().getText());
+        assertEquals("Index", login.getHeader().getIndexLink().getText());
+        WebDriverHolder.closeWebDriver();
+    }
+
+    @Test
+    public void testLegacyWithCompletyMigrated() {
+        WebdriverContext context = new WebdriverContext();
+        context.setConfig(new WebdriverProxyConfig());
+        popperFactory = context.getFactory();
+        WebDriverHolder.getDriver().get(WebDriverHolder.getBaseUrl() + "/pages/myLogin.html");
+
+        MyLoginCompletlyMigratedPo login = popperFactory.createPage(MyLoginCompletlyMigratedPo.class);
+        login.getUsernameTextbox().type("user");
+        login.getPasswordTextbox().type("secret");
+        login.getLoginButton().click();
+        assertEquals("user", login.getUsernameTextbox().getText());
+        assertEquals("secret", login.getPasswordTextbox().getText());
+        assertEquals("Index", login.getHeader().getIndexLink().getText());
+        WebDriverHolder.closeWebDriver();
+    }
+
+    @Test
+    public void testLegacyWitInnerTypeMigrated() {
+        WebdriverContext context = new WebdriverContext();
+        context.setConfig(new WebdriverProxyConfig());
+        popperFactory = context.getFactory();
+        WebDriverHolder.getDriver().get(WebDriverHolder.getBaseUrl() + "/pages/myLogin.html");
+
+        MyLoginHeaderMigratedPo login = popperFactory.createLegacyPage(MyLoginHeaderMigratedPo.class, "My Login");
+        login.getUsernameTextbox().sendKeys("user");
+        login.getPasswordTextbox().sendKeys("secret");
+        login.getLoginButton().click();
+        assertEquals("user", login.getUsernameTextbox().getAttribute("value"));
+        assertEquals("secret", login.getPasswordTextbox().getAttribute("value"));
+        assertEquals("Index", login.getHeader().getIndexLink().getText());
+        WebDriverHolder.closeWebDriver();
+    }
 }

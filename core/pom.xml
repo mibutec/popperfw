@@ -14,14 +14,6 @@
 	<description>Definition of the interfaces and base classes all Popper Framework
 		implementations depend on</description>
 	
-	<developers>
-		<developer>
-			<id>1</id>
-			<name>Michael Bulla</name>
-			<email>michaelbulla@gmail.com</email>
-		</developer>
-	</developers>
-	
 	<dependencies>
 		<dependency>
 			<groupId>org.jgrapht</groupId>
@@ -32,8 +24,8 @@
 			<artifactId>javassist</artifactId>
 		</dependency>
         <dependency>
-            <groupId>org.apache.logging.log4j</groupId>
-            <artifactId>log4j-core</artifactId>
+            <groupId>org.slf4j</groupId>
+            <artifactId>slf4j-api</artifactId>
         </dependency>
 	</dependencies>
 </project>

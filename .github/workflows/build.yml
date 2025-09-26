@@ -1,0 +1,21 @@
+## Add a wokflow to run maven build and test
+name: Build
+
+on:
+  pull_request:
+  push:
+    branches:
+      - master
+
+jobs:
+  build-test:
+    runs-on: ubuntu-latest
+    - name: Check out repo
+      uses: actions/checkout@v4
+    - name: Set up Java
+      uses: actions/setup-java@v4
+      with:
+        java-version: 21
+        distribution: temurin
+    - name: Build with Maven
+      run: mvn -B verify

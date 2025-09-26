@@ -4,9 +4,9 @@
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
- * 
+ *
  *      http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -18,15 +18,11 @@ package org.popper.fw.jemmy.annotations.locator;
 
 import java.lang.annotation.Annotation;
 import java.lang.reflect.Method;
-import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.stream.Collectors;
 
-import org.apache.commons.lang.StringUtils;
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
+import org.apache.commons.lang3.StringUtils;
 import org.netbeans.jemmy.ComponentChooser;
 import org.netbeans.jemmy.operators.ContainerOperator;
 import org.netbeans.jemmy.operators.Operator;
@@ -43,13 +39,11 @@ import org.popper.fw.jemmy.elements.impl.JemmyElementReference;
 
 /**
  * Base class for all {@link IAnnotationProcessor}s providing page objects or elements by locators
-
+ *
  * @author michael_bulla
  */
 public abstract class AbstractLocatorAnnotationProcessor<A extends Annotation>
         implements IAnnotationProcessor<A, Object>, ReturnTypeFactory<A, ContainerOperator> {
-
-    protected final Logger log = LogManager.getLogger(getClass());
 
     protected final JemmyContext context;
 
@@ -99,19 +93,19 @@ public abstract class AbstractLocatorAnnotationProcessor<A extends Annotation>
 
     protected String getName(Method method, A locator) {
         String[] split = StringUtils.splitByCharacterTypeCamelCase(method.getName());
-        return Arrays.stream(split).collect(Collectors.joining(" "));
+        return String.join(" ", split);
     }
 
-	@Override
-    @SuppressWarnings({ "unchecked", "rawtypes" })
+    @Override
+    @SuppressWarnings({"unchecked", "rawtypes"})
     public Object createObject(A annotation, LocatorContextInformation info, Class<?> type,
-            ContainerOperator operator) {
+                               ContainerOperator operator) {
         final String locatorName = getName(info.getMethod(), annotation);
         PageObjectImplementation parent = info.getParent();
         ComponentChooser chooser = getChooser(annotation, info);
         Class<?> givenImplClass = context.getImplementingClassFor(info.getMethod(), type);
         if (Operator.class.isAssignableFrom(type)) {
-        	return ((JemmyContext) info.getPopperContext()).createOperator((Class) type, info.getParent(), chooser);
+            return ((JemmyContext) info.getPopperContext()).createOperator((Class) type, info.getParent(), chooser);
         } else if (givenImplClass == null) {
             return context.getFactory().createPo(type, locatorName, chooser, parent);
         } else {

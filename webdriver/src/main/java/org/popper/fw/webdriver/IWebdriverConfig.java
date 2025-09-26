@@ -19,13 +19,13 @@ package org.popper.fw.webdriver;
 import org.openqa.selenium.WebDriver;
 
 public interface IWebdriverConfig {
-	public WebDriver createDriver();
+	WebDriver createDriver();
 	
-	public Browser getBrowser();
+	Browser getBrowser();
 	
-	public String getBaseUrl();
+	String getBaseUrl();
 	
-	public int implicitTimeout();
+	int implicitTimeout();
 	
-	public int checkNotPresentTimeout();
+	int checkNotPresentTimeout();
 }

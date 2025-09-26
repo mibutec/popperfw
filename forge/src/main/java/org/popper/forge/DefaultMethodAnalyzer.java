@@ -23,7 +23,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
-import org.jgrapht.alg.CycleDetector;
+import org.jgrapht.alg.cycle.CycleDetector;
 import org.jgrapht.graph.DefaultDirectedGraph;
 import org.jgrapht.graph.DefaultEdge;
 import org.jgrapht.traverse.TopologicalOrderIterator;
@@ -111,8 +111,8 @@ public class DefaultMethodAnalyzer implements IMethodAnalyzer {
 	
 	private List<Annotation> getOrderedReferences(
 			DefaultDirectedGraph<Annotation, DefaultEdge> g) {
-		CycleDetector<Annotation, DefaultEdge> cycleDetector = new CycleDetector<Annotation, DefaultEdge>(
-				g);
+		CycleDetector<Annotation, DefaultEdge> cycleDetector = new CycleDetector<>(
+                g);
 		if (cycleDetector.detectCycles()) {
 			throw new CycleException(cycleDetector);
 		}
